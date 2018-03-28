@@ -4,7 +4,7 @@ import model.Account;
 import org.junit.Before;
 import org.junit.Test;
 import repository.EntityNotFoundException;
-import repository.book.AccountRepositoryMock;
+import repository.account.AccountRepositoryMock;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

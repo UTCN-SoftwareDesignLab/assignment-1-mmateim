@@ -16,7 +16,7 @@ public class SQLTableCreationFactory {
                         "  holderID int(30) NOT NULL," +
                         "  balance FLOAT NOT NULL," +
                         "  PRIMARY KEY (id)," +
-                        "  UNIQUE KEY id_UNIQUE (id)" +
+                        "  UNIQUE KEY id_UNIQUE (id ASC)" +
                         ") ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;";
 
             case USER:

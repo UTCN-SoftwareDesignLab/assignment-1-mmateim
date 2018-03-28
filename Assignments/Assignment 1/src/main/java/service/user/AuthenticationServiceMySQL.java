@@ -12,7 +12,6 @@ import repository.user.UserRepository;
 import java.security.MessageDigest;
 import java.util.Collections;
 
-import static database.Constants.Roles.CLIENT;
 
 /**
  * Created by Alex on 11/03/2017.
@@ -29,7 +28,7 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
 
     @Override
     public Notification<Boolean> register(String username, String password) {
-        Role customerRole = rightsRolesRepository.findRoleByTitle(CLIENT);
+        Role customerRole = rightsRolesRepository.findRoleByTitle("employee");
         User user = new UserBuilder()
                 .setUsername(username)
                 .setPassword(password)

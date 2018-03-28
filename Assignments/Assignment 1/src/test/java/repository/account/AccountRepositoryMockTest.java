@@ -1,4 +1,4 @@
-package repository.book;
+package repository.account;
 
 import model.Account;
 import model.builder.AccountBuilder;
@@ -7,8 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import repository.Cache;
 import repository.EntityNotFoundException;
-
-import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 

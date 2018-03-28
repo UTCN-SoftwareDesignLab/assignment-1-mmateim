@@ -1,6 +1,4 @@
-package repository.book;
-
-import model.Account;
+package repository.account;
 
 /**
  * Created by Alex on 07/03/2017.

@@ -31,9 +31,8 @@ public class Constants {
     public static class Roles {
         public static final String ADMINISTRATOR = "administrator";
         public static final String EMPLOYEE = "employee";
-        public static final String CLIENT = "client";
 
-        public static final String[] ROLES = new String[]{ADMINISTRATOR, EMPLOYEE, CLIENT};
+        public static final String[] ROLES = new String[]{ADMINISTRATOR, EMPLOYEE};
     }
 
     public static class Rights {
@@ -45,11 +44,11 @@ public class Constants {
         public static final String DELETE_ACCOUNT = "delete_account";
         public static final String UPDATE_ACCOUNT = "update_account";
 
-        public static final String SELL_BOOK = "sell_book";
-        public static final String BUY_BOOK = "buy_book";
-        public static final String RETURN_BOOK = "return_book";
+        public static final String ADD_CLIENT_INFO = "add_client_info";
+        public static final String UPDATE_CLIENT_INFO = "update_client_info";
+        public static final String DELETE_CLIENT_INFO = "delete_client_info";
 
-        public static final String[] RIGHTS = new String[]{CREATE_USER, DELETE_USER, UPDATE_USER, CREATE_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT, SELL_BOOK, BUY_BOOK, RETURN_BOOK};
+        public static final String[] RIGHTS = new String[]{CREATE_USER, DELETE_USER, UPDATE_USER, CREATE_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT, ADD_CLIENT_INFO, UPDATE_CLIENT_INFO, DELETE_CLIENT_INFO};
     }
 
     public static Map<String, List<String>> getRolesRights() {
@@ -59,9 +58,7 @@ public class Constants {
         }
         ROLES_RIGHTS.get(ADMINISTRATOR).addAll(Arrays.asList(RIGHTS));
 
-        ROLES_RIGHTS.get(EMPLOYEE).addAll(Arrays.asList(CREATE_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT, SELL_BOOK));
-
-        ROLES_RIGHTS.get(CLIENT).addAll(Arrays.asList(SELL_BOOK, BUY_BOOK, RETURN_BOOK));
+        ROLES_RIGHTS.get(EMPLOYEE).addAll(Arrays.asList(CREATE_ACCOUNT, DELETE_ACCOUNT, UPDATE_ACCOUNT, ADD_CLIENT_INFO, UPDATE_CLIENT_INFO, DELETE_CLIENT_INFO));
 
         return ROLES_RIGHTS;
     }

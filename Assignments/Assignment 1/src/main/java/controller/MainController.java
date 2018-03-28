@@ -1,18 +1,20 @@
 package controller;
 
+import Main.ComponentFactory;
+import view.LoginView;
 import view.MainForm;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainController {
     private MainForm mainForm;
+    private ComponentFactory componentFactory;
 
-    public MainController()
+    public MainController(MainForm mainForm, ComponentFactory componentFactory)
     {
-        mainForm = new MainForm();
+        this.componentFactory = componentFactory;
+        this.mainForm = mainForm;
         mainForm.setCreateAccountListener(new CreateAccountListener());
-        mainForm.setClientAccountListener(new ClientAccountListener());
         mainForm.setEmployeeAccountListener(new EmployeeAccountListener());
         mainForm.setAdminAccountListener(new AdminAccountListener());
     }
@@ -22,14 +24,7 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainForm.setVisible(false);
-        }
-    }
-
-    private class ClientAccountListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            mainForm.setVisible(false);
+            new LoginController(new LoginView(false), componentFactory.getAuthenticationService());
         }
     }
 
@@ -38,6 +33,7 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainForm.setVisible(false);
+            new LoginController(new LoginView(true), componentFactory.getAuthenticationService());
         }
     }
 
@@ -46,6 +42,7 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainForm.setVisible(false);
+            new LoginController(new LoginView(true), componentFactory.getAuthenticationService());
         }
     }
 

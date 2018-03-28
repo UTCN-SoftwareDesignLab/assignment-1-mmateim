@@ -1,7 +1,8 @@
-import controller.LoginController;
+package Main;
+
 import controller.MainController;
-import view.LoginView;
 import view.MainForm;
+import view.ViewClientInfo;
 
 /**
  * Created by Alex on 18/03/2017.
@@ -10,8 +11,8 @@ public class Launcher {
 
     public static void main(String[] args) {
         ComponentFactory componentFactory = ComponentFactory.instance(false);
-        //new LoginController(new LoginView(), componentFactory.getAuthenticationService());
-        new MainController();
+        new MainController(new MainForm(), componentFactory);
+       // ViewClientInfo viewClientInfo = new ViewClientInfo();
     }
 
 }
