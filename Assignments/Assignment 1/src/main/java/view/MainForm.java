@@ -1,5 +1,7 @@
 package view;
 
+import service.user.AuthenticationService;
+
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
@@ -10,11 +12,10 @@ import static javax.swing.BoxLayout.Y_AXIS;
 public class MainForm extends JFrame {
     private JButton administratorButton;
     private JButton employeeButton;
-    private JButton clientButton;
     private JButton createAccountButton;
     private JPanel mainPanel;
 
-    public MainForm() throws HeadlessException{
+    public MainForm(){
         super("Banking App");
         setSize(800, 600);
         setContentPane(mainPanel);
@@ -24,10 +25,6 @@ public class MainForm extends JFrame {
 
     public void setCreateAccountListener(ActionListener createAccountListener) {
         createAccountButton.addActionListener(createAccountListener);
-    }
-
-    public void setClientAccountListener(ActionListener clientAccountListener){
-        clientButton.addActionListener(clientAccountListener);
     }
 
     public void setEmployeeAccountListener(ActionListener employeeAccountListener){

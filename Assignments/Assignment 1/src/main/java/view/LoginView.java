@@ -16,7 +16,7 @@ public class LoginView extends JFrame {
     private JButton btnLogin;
     private JButton btnRegister;
 
-    public LoginView() throws HeadlessException {
+    public LoginView(Boolean alreadyRegistered) throws HeadlessException {
         setSize(300, 300);
         setLocationRelativeTo(null);
         initializeFields();
@@ -25,7 +25,12 @@ public class LoginView extends JFrame {
         add(tfPassword);
         add(btnLogin);
         add(btnRegister);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        if(alreadyRegistered){
+            btnRegister.setVisible(false);
+        }
+        else
+            btnLogin.setVisible(false);
         setVisible(true);
     }
 

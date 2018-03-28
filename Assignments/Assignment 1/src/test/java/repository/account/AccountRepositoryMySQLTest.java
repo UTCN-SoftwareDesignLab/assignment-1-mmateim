@@ -1,6 +1,5 @@
-package repository.book;
+package repository.account;
 
-import database.Boostrap;
 import database.DBConnectionFactory;
 import model.Account;
 import model.builder.AccountBuilder;
@@ -9,8 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import repository.Cache;
 
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

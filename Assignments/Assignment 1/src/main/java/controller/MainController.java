@@ -1,18 +1,19 @@
 package controller;
 
+import Main.ComponentFactory;
+import view.LoginView;
 import view.MainForm;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
-public class MainController {
+public class MainController extends Observable {
     private MainForm mainForm;
 
-    public MainController()
+    public MainController(MainForm mainForm)
     {
-        mainForm = new MainForm();
+        this.mainForm = mainForm;
         mainForm.setCreateAccountListener(new CreateAccountListener());
-        mainForm.setClientAccountListener(new ClientAccountListener());
         mainForm.setEmployeeAccountListener(new EmployeeAccountListener());
         mainForm.setAdminAccountListener(new AdminAccountListener());
     }
@@ -22,14 +23,9 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainForm.setVisible(false);
-        }
-    }
-
-    private class ClientAccountListener implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            mainForm.setVisible(false);
+            setChanged();
+            notifyObservers("MainC_CreateAcc");
+           // new LoginController(new LoginView(false));
         }
     }
 
@@ -38,6 +34,9 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainForm.setVisible(false);
+            setChanged();
+            notifyObservers("MainC_EmplAcc");
+            //new LoginController(new LoginView(true));
         }
     }
 
@@ -46,6 +45,9 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             mainForm.setVisible(false);
+            setChanged();
+            notifyObservers("MainC_AdminAcc");
+            //new LoginController(new LoginView(true));
         }
     }
 

@@ -1,4 +1,4 @@
-package repository.book;
+package repository.account;
 
 import model.Account;
 import model.builder.AccountBuilder;

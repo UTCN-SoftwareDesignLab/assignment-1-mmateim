@@ -1,4 +1,8 @@
+package Main;
+
 import database.DBConnectionFactory;
+import repository.account.AccountRepository;
+import repository.account.AccountRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
@@ -17,6 +21,7 @@ public class ComponentFactory {
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
+    private final AccountRepository accountRepository;
 
     private static ComponentFactory instance;
 
@@ -32,6 +37,7 @@ public class ComponentFactory {
         this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
         this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
+        this.accountRepository = new AccountRepositoryMySQL(connection);
     }
 
     public AuthenticationService getAuthenticationService() {

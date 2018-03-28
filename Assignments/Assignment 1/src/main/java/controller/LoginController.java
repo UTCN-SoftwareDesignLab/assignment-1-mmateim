@@ -15,11 +15,9 @@ import java.awt.event.ActionListener;
  */
 public class LoginController {
     private final LoginView loginView;
-    private final AuthenticationService authenticationService;
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService) {
+    public LoginController(LoginView loginView) {
         this.loginView = loginView;
-        this.authenticationService = authenticationService;
         loginView.setLoginButtonListener(new LoginButtonListener());
         loginView.setRegisterButtonListener(new RegisterButtonListener());
     }
@@ -32,11 +30,11 @@ public class LoginController {
             String password = loginView.getPassword();
 
             Notification<User> loginNotification = null;
-            try {
-                loginNotification = authenticationService.login(username, password);
-            } catch (AuthenticationException e1) {
-                e1.printStackTrace();
-            }
+//            try {
+//                loginNotification = authenticationService.login(username, password);
+//            } catch (AuthenticationException e1) {
+//                e1.printStackTrace();
+//            }
 
             if (loginNotification != null) {
                 if (loginNotification.hasErrors()) {
@@ -55,16 +53,16 @@ public class LoginController {
             String username = loginView.getUsername();
             String password = loginView.getPassword();
 
-            Notification<Boolean> registerNotification = authenticationService.register(username, password);
-            if (registerNotification.hasErrors()) {
-                JOptionPane.showMessageDialog(loginView.getContentPane(), registerNotification.getFormattedErrors());
-            } else {
-                if (!registerNotification.getResult()) {
-                    JOptionPane.showMessageDialog(loginView.getContentPane(), "Registration not successful, please try again later.");
-                } else {
-                    JOptionPane.showMessageDialog(loginView.getContentPane(), "Registration successful!");
-                }
-            }
+//            Notification<Boolean> registerNotification = authenticationService.register(username, password);
+//            if (registerNotification.hasErrors()) {
+//                JOptionPane.showMessageDialog(loginView.getContentPane(), registerNotification.getFormattedErrors());
+//            } else {
+//                if (!registerNotification.getResult()) {
+//                    JOptionPane.showMessageDialog(loginView.getContentPane(), "Registration not successful, please try again later.");
+//                } else {
+//                    JOptionPane.showMessageDialog(loginView.getContentPane(), "Registration successful!");
+//                }
+//            }
         }
     }
 

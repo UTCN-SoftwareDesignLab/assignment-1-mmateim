@@ -2,7 +2,7 @@ package service.account;
 
 import model.Account;
 import repository.EntityNotFoundException;
-import repository.book.AccountRepository;
+import repository.account.AccountRepository;
 
 import java.util.List;
 
