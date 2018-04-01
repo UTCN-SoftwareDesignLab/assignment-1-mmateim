@@ -43,6 +43,14 @@ public class SQLTableCreationFactory {
                         "  PRIMARY KEY (`id`)," +
                         "  UNIQUE INDEX `id_UNIQUE` (`id` ASC)," +
                         "  UNIQUE INDEX `right_UNIQUE` (`right` ASC));";
+            case CLIENT:
+                return "CREATE TABLE IF NOT EXISTS`client` (" +
+                        "  `id` INT NOT NULL AUTO_INCREMENT," +
+                        "  `name` VARCHAR(45) NOT NULL," +
+                        "  `CNP` VARCHAR(15) NOT NULL," +
+                        "  `address` VARCHAR(60) NOT NULL," +
+                        "  PRIMARY KEY (`id`)," +
+                        "  UNIQUE INDEX `id_UNIQUE` (`id` ASC));";
 
             case ROLE_RIGHT:
                 return "  CREATE TABLE IF NOT EXISTS role_right (" +

@@ -6,8 +6,10 @@ import model.validation.Notification;
 import repository.security.RightsRolesRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
+import static database.Constants.Tables.ROLE;
 import static database.Constants.Tables.USER;
 
 /**
@@ -25,8 +27,45 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
-    public List<User> findAll() {
+    public Long findIdByUsername(String username){
+        try {
+            Statement statement = connection.createStatement();
+            String fetchId = "SELECT id FROM " + USER + " WHERE username = '" + username + "'";
+            ResultSet idResultSet = statement.executeQuery(fetchId);
+            if (idResultSet.next()) {
+                return idResultSet.getLong("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
+    }
+
+    @Override
+    public List<User> findAll() {
+
+        List<User> userList = new ArrayList<>();
+        try {
+            ResultSet userResultSet = connection.prepareStatement("SELECT * FROM " + USER).executeQuery();
+            while (userResultSet.next()){
+                User user = new UserBuilder()
+                        .setUsername(userResultSet.getString("username"))
+                        .setPassword(userResultSet.getString("password"))
+                        .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
+                        .build();
+                userList.add(user);
+            }
+            return userList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String findRoleByUsername(String username){
+            return (rightsRolesRepository.findRolesForUser(findIdByUsername(username))).get(0).getRole();
+           // String fetchRoleSql = "SELECT role FROM bank.role JOIN bank.user_role ON bank.user_role.role_id = bank.role.id JOIN bank.user ON bank.user.id = bank.user_role.user_id WHERE bank.user.username='" + username + "'";
     }
 
     @Override

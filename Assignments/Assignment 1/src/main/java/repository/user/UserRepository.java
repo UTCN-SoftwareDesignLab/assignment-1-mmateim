@@ -10,11 +10,15 @@ import java.util.List;
  */
 public interface UserRepository {
 
+    public Long findIdByUsername(String username);
+
     List<User> findAll();
 
     Notification<User> findByUsernameAndPassword(String username, String password) throws AuthenticationException;
 
     boolean save(User user);
+
+    String findRoleByUsername(String username);
 
     void removeAll();
 

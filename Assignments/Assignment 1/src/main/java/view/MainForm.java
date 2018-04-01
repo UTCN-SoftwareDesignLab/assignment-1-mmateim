@@ -1,17 +1,11 @@
 package view;
 
-import service.user.AuthenticationService;
-
 import javax.swing.JPanel;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 
-import static javax.swing.BoxLayout.Y_AXIS;
-
 public class MainForm extends JFrame {
-    private JButton administratorButton;
-    private JButton employeeButton;
+    private JButton logButton;
     private JButton createAccountButton;
     private JPanel mainPanel;
 
@@ -27,16 +21,7 @@ public class MainForm extends JFrame {
         createAccountButton.addActionListener(createAccountListener);
     }
 
-    public void setEmployeeAccountListener(ActionListener employeeAccountListener){
-        employeeButton.addActionListener(employeeAccountListener);
-    }
-
-    public void setAdminAccountListener(ActionListener adminAccountListener){
-        administratorButton.addActionListener(adminAccountListener);
-    }
-
-    public void setVisible(Boolean bool)
-    {
-        setVisible(bool);
+    public void setLogAccountListener(ActionListener logAccountListener){
+        logButton.addActionListener(logAccountListener);
     }
 }

@@ -15,8 +15,9 @@ public class LoginView extends JFrame {
     private JTextField tfPassword;
     private JButton btnLogin;
     private JButton btnRegister;
+    private JCheckBox CBAdmin;
 
-    public LoginView(Boolean alreadyRegistered) throws HeadlessException {
+    public LoginView() throws HeadlessException {
         setSize(300, 300);
         setLocationRelativeTo(null);
         initializeFields();
@@ -25,20 +26,29 @@ public class LoginView extends JFrame {
         add(tfPassword);
         add(btnLogin);
         add(btnRegister);
+        add(CBAdmin);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+    }
+
+    public void setButtonsVisible(Boolean alreadyRegistered) {
         if(alreadyRegistered){
             btnRegister.setVisible(false);
+            CBAdmin.setVisible(false);
+            btnLogin.setVisible(true);
         }
-        else
+        else {
             btnLogin.setVisible(false);
-        setVisible(true);
+            btnRegister.setVisible(true);
+            CBAdmin.setVisible(true);
+        }
     }
 
     private void initializeFields() {
         tfUsername = new JTextField();
-        tfPassword = new JTextField();
+        tfPassword = new JPasswordField();
         btnLogin = new JButton("Login");
         btnRegister = new JButton("Register");
+        CBAdmin = new JCheckBox();
     }
 
     public String getUsername() {
@@ -55,6 +65,10 @@ public class LoginView extends JFrame {
 
     public void setRegisterButtonListener(ActionListener registerButtonListener) {
         btnRegister.addActionListener(registerButtonListener);
+    }
+
+    public Boolean isAdmin(){
+        return CBAdmin.isSelected();
     }
 
 }
