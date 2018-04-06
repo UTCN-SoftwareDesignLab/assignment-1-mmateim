@@ -31,6 +31,27 @@ public class ClientRepositoryMySQL implements ClientRepository{
     }
 
     @Override
+    public Client findByCNP(String CNP) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + CLIENT + " WHERE CNP = '" + CNP + "'");
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                Client client = new ClientBuilder()
+                        .setID(rs.getLong("id"))
+                        .setName(rs.getString("name"))
+                        .setAdress(rs.getString("address"))
+                        .setCNP(rs.getString("CNP"))
+                        .build();
+                return client;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void removeAll() {
 
     }
@@ -39,7 +60,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
     public List<Client> findByName(String name) {
         List<Client> clientList = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + CLIENT + " WHERE 'name' = '" + name + "'" );
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + CLIENT + " WHERE name LIKE '%" + name + "%'" );
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
                 Client client = new ClientBuilder()

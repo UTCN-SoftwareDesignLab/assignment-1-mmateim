@@ -24,7 +24,7 @@ public class ClientBuilder {
     }
 
     public ClientBuilder setCNP(String CNP) {
-        client.setCNP(CNP);
+        client.setCnp(CNP);
         return this;
     }
 

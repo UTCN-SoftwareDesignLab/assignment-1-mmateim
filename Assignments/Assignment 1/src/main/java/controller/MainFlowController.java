@@ -1,6 +1,7 @@
 package controller;
 
 import Main.ComponentFactory;
+import repository.user.UserRepository;
 import view.AdminChooseAction;
 import view.LoginView;
 import view.MainForm;
@@ -9,13 +10,14 @@ import view.ViewClientInfo;
 import java.util.Observable;
 import java.util.Observer;
 
+import static database.Constants.Controller.*;
+
 public class MainFlowController implements Observer {
     private ComponentFactory componentFactory;
     private MainController mainController;
     private LoginController loginController;
     private AdminActionController adminActionController;
     private ClientInfoController clientInfoController;
-    private boolean adminRights;
 
     public MainFlowController(ComponentFactory componentFactory){
         this.componentFactory = componentFactory;
@@ -25,24 +27,25 @@ public class MainFlowController implements Observer {
         loginController.addObserver(this);
         adminActionController = new AdminActionController(new AdminChooseAction());
         adminActionController.addObserver(this);
-        clientInfoController = new ClientInfoController(new ViewClientInfo());
+        clientInfoController = new ClientInfoController(new ViewClientInfo(), componentFactory.getClientRepository());
         clientInfoController.addObserver(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        boolean adminRights;
         switch (arg.toString()){
-            case "MainC_CreateAcc" : System.out.println("MAIN form, create account action");
+            case MAINC_CREATE_ACC : System.out.println("MAIN form, create account action");
                 mainController.setVisible(false);
                 loginController.setButtonsVisible(false);
                 loginController.setVisible(true);
                 break;
-            case "MainC_LogAcc" : System.out.println("MAIN form, Log in action");
+            case MAINC_LOG_ACC : System.out.println("MAIN form, Log in action");
                 mainController.setVisible(false);
                 loginController.setButtonsVisible(true);
                 loginController.setVisible(true);
                 break;
-            case "LoginC_RegSucc" : System.out.println("LOG IN form, Successful registration");
+            case LOGINC_REG_SUCC : System.out.println("LOGIN form, Successful registration");
                 loginController.setVisible(false);
                 adminRights = getAdminRights();
                 if(adminRights){
@@ -52,17 +55,15 @@ public class MainFlowController implements Observer {
                     clientInfoController.setVisible(true);
                 }
                 break;
-            case "AdminAct_Client" : System.out.println("Admin user chose Client Actions");
+            case ADMINACT_CLIENT : System.out.println("Admin user chose Client Actions");
                 adminActionController.setVisible(false);
                 clientInfoController.setVisible(true);
                 break;
         }
     }
-    private Boolean getAdminRights(){
-        String role = componentFactory.getUserRepository().findRoleByUsername(loginController.getUsername());
-        if(role.equals("administrator")){
-            return true;
-        }
-        return false;
+    private Boolean getAdminRights() {
+        UserRepository userRepository = componentFactory.getUserRepository();
+        String role = userRepository.findRoleByUsername(loginController.getUsername());
+        return role.equals("administrator");
     }
 }

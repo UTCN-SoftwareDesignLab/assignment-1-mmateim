@@ -5,7 +5,7 @@ import java.util.List;
 public class Client {
     private long ID;
     private String name;
-    private String CNP;
+    private String cnp;
     private List<Account> accounts;
     private String address;
 
@@ -25,12 +25,12 @@ public class Client {
         this.name = name;
     }
 
-    public String getCNP() {
-        return CNP;
+    public String getCnp() {
+        return cnp;
     }
 
-    public void setCNP(String CNP) {
-        this.CNP = CNP;
+    public void setCnp(String cnp) {
+        this.cnp = cnp;
     }
 
     public List<Account> getAccounts() {
@@ -51,5 +51,8 @@ public class Client {
 
     public Client() {    }
 
-
+    @Override
+    public String toString() {
+        return ID + "\n" + name + "\n" + cnp + "\n" + address + "\n";
+    }
 }

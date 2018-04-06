@@ -13,5 +13,7 @@ public interface ClientRepository {
 
     void removeAll();
 
+    public Client findByCNP(String CNP);
+
     List<Client> findByName(String name);
 }

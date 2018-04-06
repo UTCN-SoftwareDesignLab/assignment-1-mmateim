@@ -3,7 +3,6 @@ package view;
 import model.Client;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -24,10 +23,12 @@ public class ViewClientInfo extends JFrame{
         comboBoxCNP.removeAllItems();
     }
 
-    private void populateComboBox(List<Client> clientList){
+    public void populateComboBox(List<Client> clientList){
         comboBoxCNP.removeAllItems();
-        for(Client client:clientList)
-            comboBoxCNP.addItem(client.getCNP());
+        System.out.println("Populate Combobox Clients");
+        for(Client client:clientList) {
+            comboBoxCNP.addItem(client.getCnp());
+        }
     }
 
     public String getComboBoxCNP() {
@@ -40,5 +41,18 @@ public class ViewClientInfo extends JFrame{
 
     public void setClientSearchListener (ActionListener searchClientNameListener){
         buttonSearch.addActionListener(searchClientNameListener);
+    }
+
+    public void setClientComboListener (ActionListener clientComboListener){
+        comboBoxCNP.addActionListener(clientComboListener);
+    }
+
+    public void setTxtInfoClient(String infoClient) {
+        txtInfoClient.setText(infoClient);
+    }
+
+    public String getChosenCNP()
+    {
+        return comboBoxCNP.getSelectedItem().toString();
     }
 }

@@ -10,6 +10,13 @@ import static database.Constants.Roles.*;
  */
 public class Constants {
 
+    public static class Controller{
+        public static final String MAINC_CREATE_ACC = "MainC_CreateAcc";
+        public static final String MAINC_LOG_ACC = "MainC_LogAcc";
+        public static final String LOGINC_REG_SUCC = "LoginC_RegSucc";
+        public static final String ADMINACT_CLIENT = "AdminAct_Client";
+    }
+
     public static class Schemas {
         public static final String TEST = "test_bank";
         public static final String PRODUCTION = "bank";
@@ -25,7 +32,7 @@ public class Constants {
         public static final String ROLE_RIGHT = "role_right";
         public static final String USER_ROLE = "user_role";
         public static final String CLIENT = "client";
-        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE, ACCOUNT};
+        public static final String[] ORDERED_TABLES_FOR_CREATION = new String[]{USER, ROLE, RIGHT, ROLE_RIGHT, USER_ROLE, ACCOUNT, CLIENT};
     }
 
     public static class Roles {

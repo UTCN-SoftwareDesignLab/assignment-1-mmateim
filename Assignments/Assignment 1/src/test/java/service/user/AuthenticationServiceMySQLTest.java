@@ -13,6 +13,9 @@ import repository.user.UserRepositoryMySQL;
 
 import java.sql.Connection;
 
+import static database.Constants.Roles.EMPLOYEE;
+import static database.Constants.Tables.CLIENT;
+
 /**
  * Created by Alex on 11/03/2017.
  */
@@ -44,13 +47,13 @@ public class AuthenticationServiceMySQLTest {
     @Test
     public void register() throws Exception {
         Assert.assertTrue(
-                authenticationService.register(TEST_USERNAME, TEST_PASSWORD).getResult()
+                authenticationService.register(TEST_USERNAME, TEST_PASSWORD, EMPLOYEE).getResult()
         );
     }
 
     @Test
     public void login() throws Exception {
-        authenticationService.register(TEST_USERNAME, TEST_PASSWORD).getResult();
+        authenticationService.register(TEST_USERNAME, TEST_PASSWORD, EMPLOYEE).getResult();
         User user = authenticationService.login(TEST_USERNAME, TEST_PASSWORD).getResult();
         Assert.assertNotNull(user);
     }

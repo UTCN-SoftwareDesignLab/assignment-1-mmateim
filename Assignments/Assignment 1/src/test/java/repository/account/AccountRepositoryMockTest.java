@@ -5,7 +5,6 @@ import model.builder.AccountBuilder;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import repository.Cache;
 import repository.EntityNotFoundException;
 
 import static org.junit.Assert.assertTrue;

@@ -55,4 +55,8 @@ public class ComponentFactory {
     public RightsRolesRepository getRightsRolesRepository() {
         return rightsRolesRepository;
     }
+
+    public ClientRepository getClientRepository() {
+        return clientRepository;
+    }
 }

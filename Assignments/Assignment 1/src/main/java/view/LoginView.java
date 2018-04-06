@@ -16,6 +16,7 @@ public class LoginView extends JFrame {
     private JButton btnLogin;
     private JButton btnRegister;
     private JCheckBox CBAdmin;
+    private JLabel lAdmin;
 
     public LoginView() throws HeadlessException {
         setSize(300, 300);
@@ -26,6 +27,7 @@ public class LoginView extends JFrame {
         add(tfPassword);
         add(btnLogin);
         add(btnRegister);
+        add(lAdmin);
         add(CBAdmin);
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
@@ -35,11 +37,13 @@ public class LoginView extends JFrame {
             btnRegister.setVisible(false);
             CBAdmin.setVisible(false);
             btnLogin.setVisible(true);
+            lAdmin.setVisible(false);
         }
         else {
             btnLogin.setVisible(false);
             btnRegister.setVisible(true);
             CBAdmin.setVisible(true);
+            lAdmin.setVisible(true);
         }
     }
 
@@ -49,6 +53,7 @@ public class LoginView extends JFrame {
         btnLogin = new JButton("Login");
         btnRegister = new JButton("Register");
         CBAdmin = new JCheckBox();
+        lAdmin = new JLabel("admin");
     }
 
     public String getUsername() {
