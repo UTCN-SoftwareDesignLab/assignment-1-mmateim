@@ -21,12 +21,13 @@ public class AccountRepositoryMySQLTest {
 
     @BeforeClass
     public static void setupClass() {
+        /*
         accountRepository = new AccountRepositoryCacheDecorator(
                 new AccountRepositoryMySQL(
                         new DBConnectionFactory().getConnectionWrapper(true).getConnection()
                 ),
                 new Cache<>()
-        );
+        );*/
     }
 
     @Before

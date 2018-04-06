@@ -19,7 +19,7 @@ public class LoginView extends JFrame {
     private JLabel lAdmin;
 
     public LoginView() throws HeadlessException {
-        setSize(300, 300);
+        setSize(300, 200);
         setLocationRelativeTo(null);
         initializeFields();
         setLayout(new BoxLayout(getContentPane(), Y_AXIS));
@@ -29,6 +29,8 @@ public class LoginView extends JFrame {
         add(btnRegister);
         add(lAdmin);
         add(CBAdmin);
+        tfUsername.setText("mm@gmail.com");
+        tfPassword.setText("Parola_9");
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 

@@ -15,6 +15,8 @@ public class Constants {
         public static final String MAINC_LOG_ACC = "MainC_LogAcc";
         public static final String LOGINC_REG_SUCC = "LoginC_RegSucc";
         public static final String ADMINACT_CLIENT = "AdminAct_Client";
+        public static final String CLIENT_INFO_BACK = "ClientInfo_Back";
+        public static final String CLIENT_INFO_ADVANCED = "ClientInfo_Advanced";
     }
 
     public static class Schemas {

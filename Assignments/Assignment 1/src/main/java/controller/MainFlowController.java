@@ -2,10 +2,7 @@ package controller;
 
 import Main.ComponentFactory;
 import repository.user.UserRepository;
-import view.AdminChooseAction;
-import view.LoginView;
-import view.MainForm;
-import view.ViewClientInfo;
+import view.*;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -18,8 +15,9 @@ public class MainFlowController implements Observer {
     private LoginController loginController;
     private AdminActionController adminActionController;
     private ClientInfoController clientInfoController;
+    private CRUDActionsController crudActionsController;
 
-    public MainFlowController(ComponentFactory componentFactory){
+    public MainFlowController(ComponentFactory componentFactory) {
         this.componentFactory = componentFactory;
         mainController = new MainController(new MainForm());
         mainController.addObserver(this);
@@ -27,40 +25,55 @@ public class MainFlowController implements Observer {
         loginController.addObserver(this);
         adminActionController = new AdminActionController(new AdminChooseAction());
         adminActionController.addObserver(this);
-        clientInfoController = new ClientInfoController(new ViewClientInfo(), componentFactory.getClientRepository());
+        clientInfoController = new ClientInfoController(new ClientInfoView(), componentFactory.getClientService());
         clientInfoController.addObserver(this);
+        crudActionsController = new CRUDActionsController(componentFactory.getClientService(), componentFactory.getEmployeeService(), new CRUDActionsView());
+        crudActionsController.addObserver(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         boolean adminRights;
-        switch (arg.toString()){
-            case MAINC_CREATE_ACC : System.out.println("MAIN form, create account action");
+        switch (arg.toString()) {
+            case MAINC_CREATE_ACC:
+                System.out.println("MAIN form, create account action");
                 mainController.setVisible(false);
                 loginController.setButtonsVisible(false);
                 loginController.setVisible(true);
                 break;
-            case MAINC_LOG_ACC : System.out.println("MAIN form, Log in action");
+            case MAINC_LOG_ACC:
+                System.out.println("MAIN form, Log in action");
                 mainController.setVisible(false);
                 loginController.setButtonsVisible(true);
                 loginController.setVisible(true);
                 break;
-            case LOGINC_REG_SUCC : System.out.println("LOGIN form, Successful registration");
+            case LOGINC_REG_SUCC:
+                System.out.println("LOGIN form, Successful registration");
                 loginController.setVisible(false);
                 adminRights = getAdminRights();
-                if(adminRights){
+                if (adminRights) {
                     adminActionController.setVisible(true);
-                }
-                else {
+                } else {
                     clientInfoController.setVisible(true);
                 }
                 break;
-            case ADMINACT_CLIENT : System.out.println("Admin user chose Client Actions");
-                adminActionController.setVisible(false);
+            case ADMINACT_CLIENT:
+                System.out.println("Admin user chose Client Actions");
                 clientInfoController.setVisible(true);
+                break;
+            case CLIENT_INFO_BACK:
+                System.out.println("From ClientViewInfo was chosen BACK");
+                clientInfoController.setVisible(false);
+                break;
+            case CLIENT_INFO_ADVANCED:
+                System.out.println("From ClientViewInfo was chosen ADVANCED");
+                clientInfoController.setVisible(false);
+                crudActionsController.clientBootstrap();
+                crudActionsController.setVisible(true);
                 break;
         }
     }
+
     private Boolean getAdminRights() {
         UserRepository userRepository = componentFactory.getUserRepository();
         String role = userRepository.findRoleByUsername(loginController.getUsername());

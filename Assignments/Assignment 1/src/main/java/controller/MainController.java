@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 
+import static database.Constants.Controller.MAINC_CREATE_ACC;
+import static database.Constants.Controller.MAINC_LOG_ACC;
+
 public class MainController extends Observable {
     private MainForm mainForm;
 
@@ -20,7 +23,7 @@ public class MainController extends Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             setChanged();
-            notifyObservers("MainC_CreateAcc");
+            notifyObservers(MAINC_CREATE_ACC);
            // new LoginController(new LoginView(false));
         }
     }
@@ -30,7 +33,7 @@ public class MainController extends Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             setChanged();
-            notifyObservers("MainC_LogAcc");
+            notifyObservers(MAINC_LOG_ACC);
         }
     }
 

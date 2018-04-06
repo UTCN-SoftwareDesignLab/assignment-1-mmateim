@@ -53,6 +53,6 @@ public class Client {
 
     @Override
     public String toString() {
-        return ID + "\n" + name + "\n" + cnp + "\n" + address + "\n";
+        return "ID: " + ID + "\n" + "name: " + name + "\n" + "CNP:" + cnp + "\n" + "Address: " + address + "\n";
     }
 }

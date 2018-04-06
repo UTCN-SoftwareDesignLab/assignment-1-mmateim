@@ -17,14 +17,13 @@ public class AccountServiceImplTest {
 
     @Before
     public void setup() {
-        accountService = new AccountServiceImpl(new AccountRepositoryMock());
+//       accountService = new AccountServiceImpl(new AccountRepositoryMock());
     }
 
     @Test
     public void findAll() throws Exception {
         assertEquals(0, accountService.findAll().size());
     }
-
     @Test(expected = EntityNotFoundException.class)
     public void findByIdEx() throws Exception {
         accountService.findById(1L);

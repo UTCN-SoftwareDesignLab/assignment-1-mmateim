@@ -18,10 +18,10 @@ public class AccountRepositoryMockTest {
 
     @BeforeClass
     public static void setupClass() {
-        repository = new AccountRepositoryCacheDecorator(
+       /* repository = new AccountRepositoryCacheDecorator(
                 new AccountRepositoryMock(),
                 new Cache<>()
-        );
+        );*/
     }
 
     @Before
