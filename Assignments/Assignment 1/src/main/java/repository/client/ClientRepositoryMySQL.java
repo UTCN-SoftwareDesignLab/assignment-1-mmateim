@@ -22,6 +22,24 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
     @Override
     public List<Client> findAll() {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM " + CLIENT);
+            ResultSet rs = preparedStatement.executeQuery();
+            List<Client> clientList = new ArrayList<>();
+            while (rs.next()) {
+                Client client = new ClientBuilder()
+                        .setID(rs.getLong("id"))
+                        .setName(rs.getString("name"))
+                        .setAdress(rs.getString("address"))
+                        .setCNP(rs.getString("CNP"))
+                        .build();
+                clientList.add(client);
+            }
+            return clientList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

@@ -9,7 +9,7 @@ public class Client {
     private List<Account> accounts;
     private String address;
 
-    public long getID() {
+    public long getId() {
         return ID;
     }
 

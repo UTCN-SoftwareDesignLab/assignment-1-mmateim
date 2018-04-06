@@ -44,7 +44,7 @@ public class SQLTableCreationFactory {
                         "  UNIQUE INDEX `id_UNIQUE` (`id` ASC)," +
                         "  UNIQUE INDEX `right_UNIQUE` (`right` ASC));";
             case CLIENT:
-                return "CREATE TABLE IF NOT EXISTS`client` (" +
+                return "CREATE TABLE IF NOT EXISTS`CLIENT` (" +
                         "  `id` INT NOT NULL AUTO_INCREMENT," +
                         "  `name` VARCHAR(45) NOT NULL," +
                         "  `CNP` VARCHAR(15) NOT NULL," +
