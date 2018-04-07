@@ -1,25 +1,30 @@
 package controller;
 
+import model.Client;
+import model.User;
 import service.client.ClientService;
-import service.employee.EmployeeService;
+import service.user.AuthenticationService;
+import service.user.UserServiceMySQL;
 import view.CRUDActionsView;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
 
 public class CRUDActionsController extends java.util.Observable {
 
     private ClientService clientService;
-    private EmployeeService employeeService;
+    private UserServiceMySQL userService;
     private CRUDActionsView crudActionsView;
     public enum Role {CLIENT, ADMIN}
     private Role role;
 
-    public CRUDActionsController(ClientService clientService, EmployeeService employeeService, CRUDActionsView crudActionsView) {
+    public CRUDActionsController(ClientService clientService, UserServiceMySQL userService, CRUDActionsView crudActionsView) {
         this.clientService = clientService;
-        this.employeeService = employeeService;
         this.crudActionsView = crudActionsView;
+        this.userService = userService;
         crudActionsView.setBackListener(new BackListener());
         crudActionsView.setAddListener(new AddOpListener());
         crudActionsView.setRemoveListener(new DeleteOpListener());
@@ -32,13 +37,36 @@ public class CRUDActionsController extends java.util.Observable {
 
     public void clientBootstrap() {
         role = Role.CLIENT;
-        DefaultTableModel model = clientService.findAllTable();
-        crudActionsView.bootstrapClient(model);
+        List<Client> clientList = clientService.findAll();
+        if(clientList == null)
+            crudActionsView.populateTable(null);
+        String[] columnNames = {"id", "name", "CNP", "address"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        for (Client client : clientList){
+            Vector row = new Vector();
+            row.addElement(client.getId());
+            row.addElement(client.getName());
+            row.addElement(client.getCnp());
+            row.addElement(client.getAddress());
+            model.addRow(row);
+        }
+        crudActionsView.populateTable(model);
     }
 
     public void employeeBootstrap() {
         role = Role.ADMIN;
-        crudActionsView.bootstrapEmployee();
+        /*List<User> userList = userService.findAll();
+        if(userList == null)
+            crudActionsView.populateTable(null);
+        String[] columnNames = {"id", "name", "CNP", "address"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        for (User user : userList){
+            Vector row = new Vector();
+            row.addElement(user.
+            model.addRow(row);
+        }
+        crudActionsView.populateTable(model);
+        */
     }
 
     private class AddOpListener implements ActionListener{

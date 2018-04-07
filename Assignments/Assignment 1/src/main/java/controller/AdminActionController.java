@@ -6,6 +6,9 @@ import view.AdminChooseAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static database.Constants.Controller.ADMINACT_ADMIN;
+import static database.Constants.Controller.ADMINACT_CLIENT;
+
 public class AdminActionController extends java.util.Observable {
 
     AdminChooseAction adminChooseAction;
@@ -20,7 +23,7 @@ public class AdminActionController extends java.util.Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             setChanged();
-            notifyObservers("AdminAct_Client");
+            notifyObservers(ADMINACT_CLIENT);
         }
     }
 
@@ -28,7 +31,7 @@ public class AdminActionController extends java.util.Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             setChanged();
-            notifyObservers("AdminAct_Employee");
+            notifyObservers(ADMINACT_ADMIN);
         }
     }
 

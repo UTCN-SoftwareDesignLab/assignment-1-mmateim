@@ -5,18 +5,15 @@ import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
 import repository.client.ClientRepository;
 import repository.client.ClientRepositoryMySQL;
-import repository.employee.EmployeeRepository;
-import repository.employee.EmployeeRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
 import service.client.ClientService;
 import service.client.ClientServiceMySQL;
-import service.employee.EmployeeService;
-import service.employee.EmployeeServiceMySQL;
 import service.user.AuthenticationService;
 import service.user.AuthenticationServiceMySQL;
+import service.user.UserServiceMySQL;
 
 import java.sql.Connection;
 
@@ -27,13 +24,12 @@ public class ComponentFactory {
 
     private final AuthenticationService authenticationService;
     private final ClientService clientService;
-    private final EmployeeService employeeService;
+    private final UserServiceMySQL userService;
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
     private final AccountRepository accountRepository;
     private final ClientRepository clientRepository;
-    private final EmployeeRepository employeeRepository;
 
     private static ComponentFactory instance;
 
@@ -52,16 +48,15 @@ public class ComponentFactory {
         this.accountRepository = new AccountRepositoryMySQL(connection);
         this.clientRepository = new ClientRepositoryMySQL(connection);
         this.clientService = new ClientServiceMySQL(this.clientRepository);
-        this.employeeRepository = new EmployeeRepositoryMySQL(connection);
-        this.employeeService = new EmployeeServiceMySQL(this.employeeRepository);
+        this.userService = new UserServiceMySQL(this.userRepository);
+    }
+
+    public UserServiceMySQL getUserService() {
+        return userService;
     }
 
     public ClientService getClientService() {
         return clientService;
-    }
-
-    public EmployeeService getEmployeeService() {
-        return employeeService;
     }
 
     public AuthenticationService getAuthenticationService() {

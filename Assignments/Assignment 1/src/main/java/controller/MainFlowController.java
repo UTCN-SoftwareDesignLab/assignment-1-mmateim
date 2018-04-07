@@ -27,7 +27,7 @@ public class MainFlowController implements Observer {
         adminActionController.addObserver(this);
         clientInfoController = new ClientInfoController(new ClientInfoView(), componentFactory.getClientService());
         clientInfoController.addObserver(this);
-        crudActionsController = new CRUDActionsController(componentFactory.getClientService(), componentFactory.getEmployeeService(), new CRUDActionsView());
+        crudActionsController = new CRUDActionsController(componentFactory.getClientService(), componentFactory.getUserService(), new CRUDActionsView());
         crudActionsController.addObserver(this);
     }
 
@@ -61,6 +61,10 @@ public class MainFlowController implements Observer {
                 System.out.println("Admin user chose Client Actions");
                 clientInfoController.setVisible(true);
                 break;
+            case ADMINACT_ADMIN:
+                System.out.println("Admin user chose Employee Actions");
+                crudActionsController.employeeBootstrap();
+                crudActionsController.setVisible(true);
             case CLIENT_INFO_BACK:
                 System.out.println("From ClientViewInfo was chosen BACK");
                 clientInfoController.setVisible(false);

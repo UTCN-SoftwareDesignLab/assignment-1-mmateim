@@ -3,14 +3,11 @@ package service.client;
 import model.Client;
 import repository.EntityNotFoundException;
 
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public interface ClientService {
 
     List<Client> findAll();
-
-    DefaultTableModel findAllTable();
 
     Client findById(Long id) throws EntityNotFoundException;
 

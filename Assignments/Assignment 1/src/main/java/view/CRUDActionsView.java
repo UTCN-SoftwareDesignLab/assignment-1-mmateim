@@ -21,16 +21,11 @@ public class CRUDActionsView extends JFrame {
         table.setAutoCreateRowSorter(true);
     }
 
-    public void bootstrapClient(DefaultTableModel model){
+    public void populateTable(DefaultTableModel model){
         this.model = model;
         table.removeAll();
         table.setModel(model);
         table.repaint();
-    }
-
-    public void bootstrapEmployee(DefaultTableModel model){
-        this.model = model;
-        table.removeAll();
     }
 
     public void setAddListener(ActionListener addListener){
