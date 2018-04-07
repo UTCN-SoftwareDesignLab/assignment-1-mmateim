@@ -16,12 +16,12 @@ import java.util.Collections;
 /**
  * Created by Alex on 11/03/2017.
  */
-public class AuthenticationServiceMySQL implements AuthenticationService {
+public class AuthenticationImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
 
-    public AuthenticationServiceMySQL(UserRepository userRepository, RightsRolesRepository rightsRolesRepository) {
+    public AuthenticationImpl(UserRepository userRepository, RightsRolesRepository rightsRolesRepository) {
         this.userRepository = userRepository;
         this.rightsRolesRepository = rightsRolesRepository;
     }

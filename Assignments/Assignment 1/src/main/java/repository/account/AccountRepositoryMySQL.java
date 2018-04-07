@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static database.Constants.Tables.ACCOUNT;
+
 /**
  * Created by Alex on 07/03/2017.
  */
@@ -60,10 +62,9 @@ public class AccountRepositoryMySQL implements AccountRepository {
         try {
             PreparedStatement insertStatement = connection
                     .prepareStatement("INSERT INTO account values (null, ?, ?, ?)");
-            insertStatement.setString(1, account.getIBAN());
+            insertStatement.setString(1, account.getIban());
             insertStatement.setLong(2, account.getHolderID());
             insertStatement.setFloat(3, account.getBalance());
-//            insertStatement.setDate(3, new java.sql.Date(account.getPublishedDate().getTime()));
             insertStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -83,13 +84,45 @@ public class AccountRepositoryMySQL implements AccountRepository {
         }
     }
 
+    @Override
+    public Account findByIban(String iban) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + ACCOUNT + " WHERE `iban` = '" + iban + "'");
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return getAccountFromResultSet(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Account> findByUser(Long userId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + ACCOUNT + " WHERE `client_id` = '" + userId.toString() + "'");
+            ResultSet rs = preparedStatement.executeQuery();
+            List<Account> accounts = new ArrayList<>();
+            while (rs.next()) {
+                Account account = getAccountFromResultSet(rs);
+                accounts.add(account);
+            }
+            return accounts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private Account getAccountFromResultSet(ResultSet rs) throws SQLException {
-        return new AccountBuilder()
-                .setId(rs.getLong("id"))
-                .setIBAN(rs.getString("IBAN"))
-                .setHolderID(rs.getLong("holderID"))
-                .setBalance(rs.getFloat("balance"))
-//                .setPublishedDate(new Date(rs.getDate("publishedDate").getTime()))
+        return new AccountBuilder().setId(rs.getLong("id"))
+                .setType(rs.getString("type"))
+                .setIBAN(rs.getString("iban"))
+                .setBalance(rs.getFloat("amount"))
+                .setHolderID(rs.getLong("client_id"))
+                .setCreationDate(new Date(rs.getInt("date")))
                 .build();
     }
 

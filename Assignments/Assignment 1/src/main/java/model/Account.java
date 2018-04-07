@@ -9,10 +9,15 @@ public class Account {
 
     private Long id;
 
-    private String IBAN;
+    private String iban;
     private long holderID;
-    private float Balance;
+    private float balance;
+    private Date creationDate;
     private String type;
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public Long getId() {
         return id;
@@ -31,11 +36,11 @@ public class Account {
     }
 
     public float getBalance() {
-        return Balance;
+        return balance;
     }
 
     public void setBalance(float balance) {
-        Balance = balance;
+        this.balance = balance;
     }
 
     public String getType() {
@@ -46,12 +51,12 @@ public class Account {
         this.type = type;
     }
 
-    public String getIBAN() {
-        return IBAN;
+    public String getIban() {
+        return iban;
     }
 
-    public void setIBAN(String IBAN) {
-        this.IBAN = IBAN;
+    public void setIban(String iban) {
+        this.iban = iban;
     }
 
 }

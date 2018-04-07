@@ -8,11 +8,11 @@ import repository.user.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserServiceMySQL {
+public class UserServiceImpl {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public UserServiceMySQL(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -28,5 +28,9 @@ public class UserServiceMySQL {
             userDTOS.add(new UserDTO(user.getUsername(), roles));
         }
         return userDTOS;
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 }

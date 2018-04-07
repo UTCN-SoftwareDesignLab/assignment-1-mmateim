@@ -3,6 +3,7 @@ package service.account;
 import model.Account;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
+import repository.user.UserRepository;
 
 import java.util.List;
 
@@ -11,38 +12,37 @@ import java.util.List;
  */
 public class AccountServiceImpl implements AccountService {
 
-    private final AccountRepository repository;
+    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
-    public AccountServiceImpl(AccountRepository repository) {
-        this.repository = repository;
+    public AccountServiceImpl(AccountRepository accountRepository, UserRepository userRepository) {
+        this.accountRepository = accountRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public List<Account> findAll() {
-        return repository.findAll();
+        return accountRepository.findAll();
     }
 
     @Override
     public Account findById(Long id) throws EntityNotFoundException {
-        return repository.findById(id);
+        return accountRepository.findById(id);
     }
 
     @Override
     public boolean save(Account account) {
-        return repository.save(account);
+        return accountRepository.save(account);
     }
 
-//    @Override
-//    public int getAgeOfBook(Long id) throws EntityNotFoundException {
-//        Account account = findById(id);
-//        Date publishedDate = account.getPublishedDate();
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(publishedDate);
-//        int yearOfPublishing = calendar.get(Calendar.YEAR);
-//        calendar.setTime(new Date());
-//        int yearToday = calendar.get(Calendar.YEAR);
-//
-//        return yearToday - yearOfPublishing;
-//    }
+    @Override
+    public List<Account> findByUser(String cnp) {
+        Long userId = userRepository.findIdByCnp(cnp);
+        return accountRepository.findByUser(userId);
+    }
+
+    @Override
+    public Account findByIban(String iban) {
+        return accountRepository.findByIban(iban);
+    }
 }

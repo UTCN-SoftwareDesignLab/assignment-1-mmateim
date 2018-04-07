@@ -1,7 +1,9 @@
 package controller;
 
 import Main.ComponentFactory;
+import model.User;
 import repository.user.UserRepository;
+import service.user.UserServiceImpl;
 import view.*;
 
 import java.util.Observable;
@@ -16,6 +18,7 @@ public class MainFlowController implements Observer {
     private AdminActionController adminActionController;
     private ClientInfoController clientInfoController;
     private CRUDActionsController crudActionsController;
+    private User currentUser;
     private boolean adminRights;
 
     public MainFlowController(ComponentFactory componentFactory) {
@@ -26,7 +29,7 @@ public class MainFlowController implements Observer {
         loginController.addObserver(this);
         adminActionController = new AdminActionController(new AdminChooseAction());
         adminActionController.addObserver(this);
-        clientInfoController = new ClientInfoController(new ClientInfoView(), componentFactory.getClientService());
+        clientInfoController = new ClientInfoController(new ClientInfoView(), componentFactory.getClientService(), componentFactory.getAccountService(), componentFactory.getBillService(), componentFactory.getActivityService());
         clientInfoController.addObserver(this);
         crudActionsController = new CRUDActionsController(componentFactory.getClientService(), componentFactory.getUserService(), new CRUDActionsView());
         crudActionsController.addObserver(this);
@@ -51,6 +54,9 @@ public class MainFlowController implements Observer {
                 System.out.println("LOGIN form, Successful registration");
                 loginController.setVisible(false);
                 adminRights = getAdminRights();
+                UserServiceImpl userService = componentFactory.getUserService();
+                currentUser = userService.findByUsername(loginController.getUsername());
+                clientInfoController.setCurrentUser(currentUser);
                 if (adminRights) {
                     adminActionController.setVisible(true);
                 } else {

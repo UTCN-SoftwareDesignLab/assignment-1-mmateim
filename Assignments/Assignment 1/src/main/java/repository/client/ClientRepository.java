@@ -16,4 +16,5 @@ public interface ClientRepository {
     public Client findByCNP(String CNP);
 
     List<Client> findByName(String name);
+
 }

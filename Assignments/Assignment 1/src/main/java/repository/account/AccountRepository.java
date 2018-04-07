@@ -18,4 +18,8 @@ public interface AccountRepository {
 
     void removeAll();
 
+    List<Account> findByUser(Long userId);
+
+    Account findByIban(String iban);
+
 }

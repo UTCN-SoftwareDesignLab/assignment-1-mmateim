@@ -12,6 +12,8 @@ public interface UserRepository {
 
     public Long findIdByUsername(String username);
 
+    public User findByUsername(String username);
+
     List<User> findAll();
 
     Notification<User> findByUsernameAndPassword(String username, String password) throws AuthenticationException;
@@ -21,5 +23,7 @@ public interface UserRepository {
     String findRoleByUsername(String username);
 
     void removeAll();
+
+    Long findIdByCnp(String cnp);
 
 }

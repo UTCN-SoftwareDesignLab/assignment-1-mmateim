@@ -12,6 +12,9 @@ public class SQLTableCreationFactory {
             case ACCOUNT:
                 return "CREATE TABLE IF NOT EXISTS `account` (" +
                         "  `id` INT NOT NULL AUTO_INCREMENT," +
+                        "  `iban` VARCHAR(20) NOT NULL," +
+                        "  `type` VARCHAR(20)," +
+                        "  `date` INT," +
                         "  `amount` DOUBLE NOT NULL DEFAULT 0," +
                         "  `client_id` INT NOT NULL," +
                         "  PRIMARY KEY (`id`)," +
@@ -101,7 +104,7 @@ public class SQLTableCreationFactory {
                 return "CREATE TABLE IF NOT EXISTS `transfer` (" +
                         "  `id` INT NOT NULL AUTO_INCREMENT," +
                         "  `amount` DOUBLE NOT NULL," +
-                        "  `date` INT NOT NULL," +
+                        "  `date` BIGINT NOT NULL," +
                         "  `user_id` INT NOT NULL," +
                         "  `sender` INT NOT NULL," +
                         "  `receiver` INT NOT NULL," +
@@ -131,7 +134,7 @@ public class SQLTableCreationFactory {
                         "  `id` INT NOT NULL AUTO_INCREMENT," +
                         "  `description` VARCHAR(100) NOT NULL," +
                         "  `amount` DOUBLE NOT NULL," +
-                        "  `date` INT NOT NULL," +
+                        "  `date` BIGINT NOT NULL," +
                         "  `user_id` INT NOT NULL," +
                         "  `account_id` INT NOT NULL," +
                         "  `client_id` INT NOT NULL," +
@@ -158,7 +161,7 @@ public class SQLTableCreationFactory {
             case ACTIVITY :
                 return "CREATE TABLE IF NOT EXISTS `activity` (" +
                         "  `id` INT NOT NULL AUTO_INCREMENT," +
-                        "  `date` INT NOT NULL," +
+                        "  `date` BIGINT NOT NULL," +
                         "  `user_id` INT NOT NULL," +
                         "  `description` VARCHAR(100) NOT NULL," +
                         "  PRIMARY KEY (`id`)," +

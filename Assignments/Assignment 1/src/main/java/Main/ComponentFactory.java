@@ -3,17 +3,27 @@ package Main;
 import database.DBConnectionFactory;
 import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
+import repository.activity.ActivityRepository;
+import repository.activity.ActivityRepositoryMySQL;
+import repository.bill.BillRepository;
+import repository.bill.BillRepositoryMySQL;
 import repository.client.ClientRepository;
 import repository.client.ClientRepositoryMySQL;
 import repository.security.RightsRolesRepository;
 import repository.security.RightsRolesRepositoryMySQL;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryMySQL;
+import service.account.AccountService;
+import service.account.AccountServiceImpl;
+import service.activity.ActivityService;
+import service.activity.ActivityServiceImpl;
+import service.bill.BillService;
+import service.bill.BillServiceImpl;
 import service.client.ClientService;
-import service.client.ClientServiceMySQL;
+import service.client.ClientServiceImpl;
 import service.user.AuthenticationService;
-import service.user.AuthenticationServiceMySQL;
-import service.user.UserServiceMySQL;
+import service.user.AuthenticationImpl;
+import service.user.UserServiceImpl;
 
 import java.sql.Connection;
 
@@ -24,12 +34,17 @@ public class ComponentFactory {
 
     private final AuthenticationService authenticationService;
     private final ClientService clientService;
-    private final UserServiceMySQL userService;
+    private final UserServiceImpl userService;
+    private final AccountService accountService;
+    private final BillService billService;
+    private final ActivityService activityService;
 
     private final UserRepository userRepository;
     private final RightsRolesRepository rightsRolesRepository;
     private final AccountRepository accountRepository;
     private final ClientRepository clientRepository;
+    private final BillRepository billRepository;
+    private final ActivityRepository activityRepository;
 
     private static ComponentFactory instance;
 
@@ -44,15 +59,32 @@ public class ComponentFactory {
         Connection connection = new DBConnectionFactory().getConnectionWrapper(componentsForTests).getConnection();
         this.rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         this.userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
-        this.authenticationService = new AuthenticationServiceMySQL(this.userRepository, this.rightsRolesRepository);
+        this.authenticationService = new AuthenticationImpl(this.userRepository, this.rightsRolesRepository);
         this.accountRepository = new AccountRepositoryMySQL(connection);
         this.clientRepository = new ClientRepositoryMySQL(connection);
-        this.clientService = new ClientServiceMySQL(this.clientRepository);
-        this.userService = new UserServiceMySQL(this.userRepository);
+        this.clientService = new ClientServiceImpl(this.clientRepository);
+        this.userService = new UserServiceImpl(this.userRepository);
+        this.accountService = new AccountServiceImpl(this.accountRepository, this.userRepository);
+        this.billRepository = new BillRepositoryMySQL(connection);
+        this.billService = new BillServiceImpl(this.billRepository);
+        this.activityRepository = new ActivityRepositoryMySQL(connection);
+        this.activityService = new ActivityServiceImpl(this.activityRepository);
     }
 
-    public UserServiceMySQL getUserService() {
+    public ActivityService getActivityService() {
+        return activityService;
+    }
+
+    public BillService getBillService() {
+        return billService;
+    }
+
+    public UserServiceImpl getUserService() {
         return userService;
+    }
+
+    public AccountService getAccountService() {
+        return accountService;
     }
 
     public ClientService getClientService() {

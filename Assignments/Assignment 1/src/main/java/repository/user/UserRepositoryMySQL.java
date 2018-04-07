@@ -42,20 +42,45 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
+    public User findByUsername(String username) {
+        try {
+            Statement statement = connection.createStatement();
+            String fetchId = "SELECT * FROM " + USER + " WHERE username = '" + username + "'";
+            ResultSet rs = statement.executeQuery(fetchId);
+            if (rs.next()) {
+                return userFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<User> findAll() {
 
         List<User> userList = new ArrayList<>();
         try {
             ResultSet userResultSet = connection.prepareStatement("SELECT * FROM " + USER).executeQuery();
             while (userResultSet.next()){
-                User user = new UserBuilder()
-                        .setUsername(userResultSet.getString("username"))
-                        .setPassword(userResultSet.getString("password"))
-                        .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
-                        .build();
-                userList.add(user);
+
+                userList.add(userFromResultSet(userResultSet));
             }
             return userList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private User userFromResultSet(ResultSet userResultSet){
+        try {
+            return new UserBuilder()
+                    .setId(userResultSet.getLong("id"))
+                    .setUsername(userResultSet.getString("username"))
+                    .setPassword(userResultSet.getString("password"))
+                    .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
+                    .build();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -126,6 +151,20 @@ public class UserRepositoryMySQL implements UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Long findIdByCnp(String cnp) {
+        try {
+            ResultSet rs = connection.prepareStatement("SELECT * FROM " + USER).executeQuery();
+            if(rs.next()){
+                return rs.getLong("id");
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

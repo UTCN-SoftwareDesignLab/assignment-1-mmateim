@@ -2,10 +2,8 @@ package controller;
 
 import DTO.UserDTO;
 import model.Client;
-import model.User;
 import service.client.ClientService;
-import service.user.AuthenticationService;
-import service.user.UserServiceMySQL;
+import service.user.UserServiceImpl;
 import view.CRUDActionsView;
 
 import javax.swing.table.DefaultTableModel;
@@ -17,12 +15,12 @@ import java.util.Vector;
 public class CRUDActionsController extends java.util.Observable {
 
     private ClientService clientService;
-    private UserServiceMySQL userService;
+    private UserServiceImpl userService;
     private CRUDActionsView crudActionsView;
     public enum Role {CLIENT, ADMIN}
     private Role role;
 
-    public CRUDActionsController(ClientService clientService, UserServiceMySQL userService, CRUDActionsView crudActionsView) {
+    public CRUDActionsController(ClientService clientService, UserServiceImpl userService, CRUDActionsView crudActionsView) {
         this.clientService = clientService;
         this.crudActionsView = crudActionsView;
         this.userService = userService;

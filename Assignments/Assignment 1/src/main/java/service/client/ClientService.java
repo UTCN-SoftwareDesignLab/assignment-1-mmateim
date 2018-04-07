@@ -13,7 +13,7 @@ public interface ClientService {
 
     boolean save(Client client);
 
-    public String findByCNP(String CNP);
+    public Client findByCNP(String CNP);
 
     public List<String> findByName(String name);
 }

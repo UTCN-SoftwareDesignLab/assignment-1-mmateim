@@ -16,4 +16,7 @@ public interface AccountService {
 
     boolean save(Account book);
 
+    List<Account> findByUser(String cnp);
+
+    Account findByIban(String iban);
 }

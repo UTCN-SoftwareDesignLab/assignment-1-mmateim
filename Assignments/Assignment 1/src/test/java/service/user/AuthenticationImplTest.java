@@ -14,12 +14,11 @@ import repository.user.UserRepositoryMySQL;
 import java.sql.Connection;
 
 import static database.Constants.Roles.EMPLOYEE;
-import static database.Constants.Tables.CLIENT;
 
 /**
  * Created by Alex on 11/03/2017.
  */
-public class AuthenticationServiceMySQLTest {
+public class AuthenticationImplTest {
 
     public static final String TEST_USERNAME = "test@username.com";
     public static final String TEST_PASSWORD = "TestPassword1@";
@@ -32,7 +31,7 @@ public class AuthenticationServiceMySQLTest {
         RightsRolesRepository rightsRolesRepository = new RightsRolesRepositoryMySQL(connection);
         userRepository = new UserRepositoryMySQL(connection, rightsRolesRepository);
 
-        authenticationService = new AuthenticationServiceMySQL(
+        authenticationService = new AuthenticationImpl(
                 userRepository,
                 rightsRolesRepository
         );

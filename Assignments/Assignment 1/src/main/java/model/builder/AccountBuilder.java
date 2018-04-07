@@ -2,6 +2,8 @@ package model.builder;
 
 import model.Account;
 
+import java.util.Date;
+
 /**
  * Created by Alex on 07/03/2017.
  */
@@ -19,7 +21,7 @@ public class AccountBuilder {
     }
 
     public AccountBuilder setIBAN(String iban){
-        account.setIBAN(iban);
+        account.setIban(iban);
         return this;
     }
 
@@ -35,6 +37,11 @@ public class AccountBuilder {
 
     public AccountBuilder setType(String type){
         account.setType(type);
+        return this;
+    }
+
+    public AccountBuilder setCreationDate(Date creationDate) {
+        account.setCreationDate(creationDate);
         return this;
     }
 
