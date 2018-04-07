@@ -14,6 +14,11 @@ public class ClientInfoView extends JFrame{
     private JButton buttonSearch;
     private JButton buttonBack;
     private JButton buttonAdvanced;
+    private JTextField billAmount;
+    private JTextField billDescription;
+    private JButton buttonPay;
+    private JComboBox comboAccounts;
+    private JButton buttonTransfer;
 
     public ClientInfoView(){
         super("View Client Info");
