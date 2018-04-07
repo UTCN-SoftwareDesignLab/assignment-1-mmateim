@@ -1,5 +1,6 @@
 package controller;
 
+import DTO.UserDTO;
 import model.Client;
 import model.User;
 import service.client.ClientService;
@@ -55,18 +56,18 @@ public class CRUDActionsController extends java.util.Observable {
 
     public void employeeBootstrap() {
         role = Role.ADMIN;
-        /*List<User> userList = userService.findAll();
+        List<UserDTO> userList = userService.findAll();
         if(userList == null)
             crudActionsView.populateTable(null);
-        String[] columnNames = {"id", "name", "CNP", "address"};
+        String[] columnNames = {"username", "roles"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-        for (User user : userList){
+        for (UserDTO user : userList){
             Vector row = new Vector();
-            row.addElement(user.
+            row.addElement(user.getUsername());
+            row.addElement(user.getRoles());
             model.addRow(row);
         }
         crudActionsView.populateTable(model);
-        */
     }
 
     private class AddOpListener implements ActionListener{

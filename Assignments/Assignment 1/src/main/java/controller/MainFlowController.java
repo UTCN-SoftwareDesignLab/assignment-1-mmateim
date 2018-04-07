@@ -16,6 +16,7 @@ public class MainFlowController implements Observer {
     private AdminActionController adminActionController;
     private ClientInfoController clientInfoController;
     private CRUDActionsController crudActionsController;
+    private boolean adminRights;
 
     public MainFlowController(ComponentFactory componentFactory) {
         this.componentFactory = componentFactory;
@@ -33,7 +34,6 @@ public class MainFlowController implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        boolean adminRights;
         switch (arg.toString()) {
             case MAINC_CREATE_ACC:
                 System.out.println("MAIN form, create account action");
@@ -65,9 +65,13 @@ public class MainFlowController implements Observer {
                 System.out.println("Admin user chose Employee Actions");
                 crudActionsController.employeeBootstrap();
                 crudActionsController.setVisible(true);
+                break;
             case CLIENT_INFO_BACK:
                 System.out.println("From ClientViewInfo was chosen BACK");
                 clientInfoController.setVisible(false);
+                if(!adminRights){
+                    mainController.setVisible(true);
+                }
                 break;
             case CLIENT_INFO_ADVANCED:
                 System.out.println("From ClientViewInfo was chosen ADVANCED");
