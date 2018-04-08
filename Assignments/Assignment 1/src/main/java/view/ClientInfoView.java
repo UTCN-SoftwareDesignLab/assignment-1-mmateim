@@ -18,6 +18,7 @@ public class ClientInfoView extends JFrame {
     private JComboBox comboAccounts;
     private JButton buttonTransfer;
     private JButton buttonAdvancedAccount;
+    private JComboBox comboBoxReceiver;
 
     public ClientInfoView() {
         super("View Client Info");
@@ -44,15 +45,27 @@ public class ClientInfoView extends JFrame {
         comboAccounts.removeAllItems();
         for (String account : accountList) {
             comboAccounts.addItem(account);
-            comboAccounts.setSelectedItem(null);
         }
+        comboAccounts.setSelectedItem(null);
+    }
+
+    public void populateComboBoxReceiver(List<String> accountList) {
+        comboBoxReceiver.removeAllItems();
+        for (String account : accountList) {
+            comboBoxReceiver.addItem(account);
+        }
+        comboBoxReceiver.setSelectedItem(null);
     }
 
     public void setAdvancedAccountListener(ActionListener accountListener){
         buttonAdvancedAccount.addActionListener(accountListener);
     }
 
-    public float getbillAmount() {
+    public void setComboReiceiverListener(ActionListener actionListener){
+        comboAccounts.addActionListener(actionListener);
+    }
+
+    public float getBillAmount() {
         return Float.parseFloat(billAmount.getText());
     }
 
@@ -102,5 +115,11 @@ public class ClientInfoView extends JFrame {
         if(comboAccounts.getSelectedItem() == null)
             return null;
         return comboAccounts.getSelectedItem().toString();
+    }
+
+    public String getChosenIbanRec() {
+        if(comboBoxReceiver.getSelectedItem() == null)
+            return null;
+        return comboBoxReceiver.getSelectedItem().toString();
     }
 }

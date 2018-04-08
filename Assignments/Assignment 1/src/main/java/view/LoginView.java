@@ -29,8 +29,8 @@ public class LoginView extends JFrame {
         add(btnRegister);
         add(lAdmin);
         add(CBAdmin);
-        tfUsername.setText("mm@gmail.com");
-        tfPassword.setText("Parola_9");
+        tfUsername.setText("mm@gmail.com"); //Just for your easy access to admin operations
+        tfPassword.setText("Parola_9"); //I know they should not be like this
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
