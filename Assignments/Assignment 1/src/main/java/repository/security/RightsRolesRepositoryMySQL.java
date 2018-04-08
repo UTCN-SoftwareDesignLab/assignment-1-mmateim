@@ -142,6 +142,17 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
     }
 
     @Override
+    public boolean removeUserRole(Long userId) {
+        try {
+            connection.prepareStatement("DELETE from " + USER_ROLE + " where user_id = '" + userId + "'").executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public void addRoleRight(Long roleId, Long rightId) {
         try {
             PreparedStatement insertStatement = connection

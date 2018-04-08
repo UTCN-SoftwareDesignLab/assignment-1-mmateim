@@ -28,4 +28,6 @@ public interface RightsRolesRepository {
     void addRoleRight(Long roleId, Long rightId);
 
     public boolean updateUserRole(Long userId, String Role);
+
+    public boolean removeUserRole(Long userId);
 }

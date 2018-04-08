@@ -39,8 +39,11 @@ public class UserServiceImpl {
     }
 
     public boolean delete(User user){
-        //role
-        return userRepository.delete(user);
+        Boolean flag = userRepository.delete(user);
+        if(flag){
+            rightsRolesRepository.removeUserRole(user.getId());
+        }
+        return flag;
     }
 
     public boolean update(Long id, String role){
