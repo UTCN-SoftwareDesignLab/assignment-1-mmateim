@@ -31,6 +31,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Boolean delete(String id) {
+        return clientRepository.delete(id);
+    }
+
+    @Override
     public Client findByCNP(String CNP) {
         return clientRepository.findByCNP(CNP);
     }

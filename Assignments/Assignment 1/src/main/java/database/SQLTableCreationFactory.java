@@ -14,7 +14,7 @@ public class SQLTableCreationFactory {
                         "  `id` INT NOT NULL AUTO_INCREMENT," +
                         "  `iban` VARCHAR(20) NOT NULL," +
                         "  `type` VARCHAR(20)," +
-                        "  `date` INT," +
+                        "  `date` BIGINT," +
                         "  `amount` DOUBLE NOT NULL DEFAULT 0," +
                         "  `client_id` INT NOT NULL," +
                         "  PRIMARY KEY (`id`)," +

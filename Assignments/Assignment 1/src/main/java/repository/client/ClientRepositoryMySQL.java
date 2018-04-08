@@ -70,6 +70,17 @@ public class ClientRepositoryMySQL implements ClientRepository{
     }
 
     @Override
+    public Boolean delete(String id) {
+        try {
+            connection.prepareStatement("DELETE from client WHERE id = '" + id + "'").executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public void removeAll() {
 
     }

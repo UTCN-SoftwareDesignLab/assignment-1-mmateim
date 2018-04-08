@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Observable;
 
 import static database.Constants.Controller.CLIENT_INFO_ADVANCED;
+import static database.Constants.Controller.CLIENT_INFO_ADVANCED_ACCOUNTS;
 import static database.Constants.Controller.CLIENT_INFO_BACK;
 
 public class ClientInfoController extends Observable{
@@ -36,10 +37,19 @@ public class ClientInfoController extends Observable{
         clientInfoView.setBackListener(new BackListener());
         clientInfoView.setAdvancedListener(new AdvancedOperationsListener());
         clientInfoView.setPayListener(new PayBillListener());
+        clientInfoView.setAdvancedAccountListener(new AdvancedAccountsListener());
     }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    private class AdvancedAccountsListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            setChanged();
+            notifyObservers(CLIENT_INFO_ADVANCED_ACCOUNTS);
+        }
     }
 
     private class AdvancedOperationsListener implements ActionListener{

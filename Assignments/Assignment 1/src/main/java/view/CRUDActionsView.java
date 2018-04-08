@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class CRUDActionsView extends JFrame {
     private JPanel ActionsPanel;
@@ -26,6 +27,10 @@ public class CRUDActionsView extends JFrame {
         table.removeAll();
         table.setModel(model);
         table.repaint();
+    }
+
+    public Vector getSelectedRow(){
+        return (Vector)model.getDataVector().get(table.getSelectedRow());
     }
 
     public void setAddListener(ActionListener addListener){

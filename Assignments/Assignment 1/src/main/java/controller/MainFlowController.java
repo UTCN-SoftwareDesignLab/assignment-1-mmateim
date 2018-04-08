@@ -31,7 +31,7 @@ public class MainFlowController implements Observer {
         adminActionController.addObserver(this);
         clientInfoController = new ClientInfoController(new ClientInfoView(), componentFactory.getClientService(), componentFactory.getAccountService(), componentFactory.getBillService(), componentFactory.getActivityService());
         clientInfoController.addObserver(this);
-        crudActionsController = new CRUDActionsController(componentFactory.getClientService(), componentFactory.getUserService(), new CRUDActionsView());
+        crudActionsController = new CRUDActionsController(componentFactory.getClientService(), componentFactory.getUserService(), new CRUDActionsView(), componentFactory.getAccountService());
         crudActionsController.addObserver(this);
     }
 
@@ -84,6 +84,19 @@ public class MainFlowController implements Observer {
                 clientInfoController.setVisible(false);
                 crudActionsController.clientBootstrap();
                 crudActionsController.setVisible(true);
+                break;
+            case CRUD_BACK:
+                System.out.println("from CRUD window exit");
+                crudActionsController.setVisible(false);
+                if(!adminRights){
+                    clientInfoController.setVisible(true);
+                }
+                break;
+            case CLIENT_INFO_ADVANCED_ACCOUNTS :
+                System.out.println("CRUD operations on account");
+                clientInfoController.setVisible(false);
+                crudActionsController.setVisible(true);
+                crudActionsController.accountBootstrap();
                 break;
         }
     }

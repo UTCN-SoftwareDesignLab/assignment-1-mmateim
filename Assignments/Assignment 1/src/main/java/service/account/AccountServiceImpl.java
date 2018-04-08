@@ -26,6 +26,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Boolean delete(String id) {
+        return accountRepository.delete(id);
+    }
+
+    @Override
     public Account findById(Long id) throws EntityNotFoundException {
         return accountRepository.findById(id);
     }

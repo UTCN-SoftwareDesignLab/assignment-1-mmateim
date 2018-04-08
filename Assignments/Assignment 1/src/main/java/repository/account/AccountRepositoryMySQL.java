@@ -25,10 +25,7 @@ public class AccountRepositoryMySQL implements AccountRepository {
     public List<Account> findAll() {
         List<Account> accounts = new ArrayList<>();
         try {
-            Statement statement = connection.createStatement();
-            String sql = "Select * from account";
-            ResultSet rs = statement.executeQuery(sql);
-
+            ResultSet rs = connection.prepareStatement("SELECT * FROM account").executeQuery();
             while (rs.next()) {
                 accounts.add(getAccountFromResultSet(rs));
             }
@@ -37,6 +34,17 @@ public class AccountRepositoryMySQL implements AccountRepository {
         }
 
         return accounts;
+    }
+
+    @Override
+    public Boolean delete(String id) {
+        try {
+            connection.prepareStatement("DELETE from account WHERE id = '" + id + "'").executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

@@ -17,4 +17,5 @@ public interface ClientRepository {
 
     List<Client> findByName(String name);
 
+    Boolean delete (String id);
 }

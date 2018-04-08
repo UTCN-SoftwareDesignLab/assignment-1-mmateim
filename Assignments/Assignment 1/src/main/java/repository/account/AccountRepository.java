@@ -22,4 +22,6 @@ public interface AccountRepository {
 
     Account findByIban(String iban);
 
+    Boolean delete(String id);
+
 }

@@ -33,4 +33,8 @@ public class UserServiceImpl {
     public User findByUsername(String username){
         return userRepository.findByUsername(username);
     }
+
+    public boolean delete(User user){
+        return userRepository.delete(user);
+    }
 }

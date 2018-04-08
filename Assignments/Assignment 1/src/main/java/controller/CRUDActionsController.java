@@ -1,7 +1,9 @@
 package controller;
 
 import DTO.UserDTO;
+import model.Account;
 import model.Client;
+import service.account.AccountService;
 import service.client.ClientService;
 import service.user.UserServiceImpl;
 import view.CRUDActionsView;
@@ -12,18 +14,22 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
+import static database.Constants.Controller.CRUD_BACK;
+
 public class CRUDActionsController extends java.util.Observable {
 
+    private AccountService accountService;
     private ClientService clientService;
     private UserServiceImpl userService;
     private CRUDActionsView crudActionsView;
-    public enum Role {CLIENT, ADMIN}
+    public enum Role {CLIENT, ADMIN, ACCOUNT}
     private Role role;
 
-    public CRUDActionsController(ClientService clientService, UserServiceImpl userService, CRUDActionsView crudActionsView) {
+    public CRUDActionsController(ClientService clientService, UserServiceImpl userService, CRUDActionsView crudActionsView, AccountService accountService) {
         this.clientService = clientService;
         this.crudActionsView = crudActionsView;
         this.userService = userService;
+        this.accountService = accountService;
         crudActionsView.setBackListener(new BackListener());
         crudActionsView.setAddListener(new AddOpListener());
         crudActionsView.setRemoveListener(new DeleteOpListener());
@@ -68,6 +74,25 @@ public class CRUDActionsController extends java.util.Observable {
         crudActionsView.populateTable(model);
     }
 
+    public void accountBootstrap(){
+        role = Role.ACCOUNT;
+        List<Account> accounts = accountService.findAll();
+        if(accounts == null)
+            crudActionsView.populateTable(null);
+        String[] columnNames = {"id", "iban", "balance", "holder_id", "type"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        for (Account account : accounts){
+            Vector row = new Vector();
+            row.addElement(account.getId());
+            row.addElement(account.getIban());
+            row.addElement(account.getBalance());
+            row.addElement(account.getHolderID());
+            row.addElement(account.getType());
+            model.addRow(row);
+        }
+        crudActionsView.populateTable(model);
+    }
+
     private class AddOpListener implements ActionListener{
 
         @Override
@@ -88,7 +113,21 @@ public class CRUDActionsController extends java.util.Observable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            Vector v = crudActionsView.getSelectedRow();
+            if(role.equals(Role.ADMIN)) {
+                String username = v.get(0).toString();
+                userService.delete(userService.findByUsername(username));
+            }
+            if(role.equals(Role.CLIENT)){
+                String id = v.get(0).toString();
+                clientService.delete(id);
+            }
+            if(role.equals(Role.ACCOUNT)){
+                String id = v.get(0).toString();
+                accountService.delete(id);
+            }
+            setChanged();
+            notifyObservers(CRUD_BACK);
         }
     }
 
@@ -96,7 +135,8 @@ public class CRUDActionsController extends java.util.Observable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            setChanged();
+            notifyObservers(CRUD_BACK);
         }
     }
 

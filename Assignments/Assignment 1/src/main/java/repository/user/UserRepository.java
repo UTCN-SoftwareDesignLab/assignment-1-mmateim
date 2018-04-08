@@ -26,4 +26,6 @@ public interface UserRepository {
 
     Long findIdByCnp(String cnp);
 
+    public Boolean delete(User user);
+
 }

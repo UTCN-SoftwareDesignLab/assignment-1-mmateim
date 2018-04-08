@@ -16,4 +16,6 @@ public interface ClientService {
     public Client findByCNP(String CNP);
 
     public List<String> findByName(String name);
+
+    public Boolean delete(String id);
 }

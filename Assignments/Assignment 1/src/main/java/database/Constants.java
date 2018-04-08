@@ -17,7 +17,9 @@ public class Constants {
         public static final String ADMINACT_CLIENT = "AdminAct_Client";
         public static final String CLIENT_INFO_BACK = "ClientInfo_Back";
         public static final String CLIENT_INFO_ADVANCED = "ClientInfo_Advanced";
+        public static final String CLIENT_INFO_ADVANCED_ACCOUNTS = "ClientInfo_Advanced_Accounts";
         public static final String ADMINACT_ADMIN = "AdminAct_Admin";
+        public static final String CRUD_BACK = "CRUD_Back";
     }
 
     public static class Schemas {

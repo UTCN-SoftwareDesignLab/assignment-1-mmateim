@@ -19,4 +19,6 @@ public interface AccountService {
     List<Account> findByUser(String cnp);
 
     Account findByIban(String iban);
+
+    Boolean delete(String id);
 }

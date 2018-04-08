@@ -17,7 +17,7 @@ public class ClientInfoView extends JFrame {
     private JButton buttonPay;
     private JComboBox comboAccounts;
     private JButton buttonTransfer;
-    private JButton buttonAdvancedAcctount;
+    private JButton buttonAdvancedAccount;
 
     public ClientInfoView() {
         super("View Client Info");
@@ -46,6 +46,10 @@ public class ClientInfoView extends JFrame {
             comboAccounts.addItem(account);
             comboAccounts.setSelectedItem(null);
         }
+    }
+
+    public void setAdvancedAccountListener(ActionListener accountListener){
+        buttonAdvancedAccount.addActionListener(accountListener);
     }
 
     public float getbillAmount() {

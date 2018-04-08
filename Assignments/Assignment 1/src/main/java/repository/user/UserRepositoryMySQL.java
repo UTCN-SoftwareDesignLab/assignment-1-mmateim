@@ -88,6 +88,17 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
+    public Boolean delete(User user){
+        try {
+            connection.prepareStatement("DELETE from user WHERE id = '" + user.getId() + "'").executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public String findRoleByUsername(String username){
             return (rightsRolesRepository.findRolesForUser(findIdByUsername(username))).get(0).getRole();
            // String fetchRoleSql = "SELECT role FROM bank.role JOIN bank.user_role ON bank.user_role.role_id = bank.role.id JOIN bank.user ON bank.user.id = bank.user_role.user_id WHERE bank.user.username='" + username + "'";
