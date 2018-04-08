@@ -1,0 +1,5 @@
+date : Sun Apr 08 12:50:32 EEST 2018 - Transfered 5.0 from iban: 123 to 345
+date : Sun Apr 08 17:38:35 EEST 2018 - Transfered 2.0 from iban: 123 to 345
+date : Sun Apr 08 18:52:52 EEST 2018 - Finished processing the utility bill (water ) for client Ana Pop
+date : Sun Apr 08 18:53:10 EEST 2018 - Finished processing the utility bill (water ) for client Ana Pop
+date : Sun Apr 08 19:04:36 EEST 2018 - Finished processing the utility bill (Garbage colector ) for client Ana Pop

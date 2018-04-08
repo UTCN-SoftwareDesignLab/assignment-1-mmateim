@@ -63,13 +63,7 @@ public class ClientInfoController extends Observable {
             if (amount > 0 && ibanSender != null && ibanReceiver != null) {
                 Account sender = accountService.findByIban(ibanSender);
                 if(sender.getBalance() > amount){
-                    float oldBalance = sender.getBalance();
-                    sender.setBalance(oldBalance - amount);
-                    accountService.update(sender.getId(), sender);
-                    Account receiver = accountService.findByIban(ibanReceiver);
-                    oldBalance = receiver.getBalance();
-                    receiver.setBalance(oldBalance + amount);
-                    accountService.update(receiver.getId(), receiver);
+                    accountService.transferMoney(amount, ibanReceiver, sender);
                     Activity activity = new Activity(new Date(), "Transfered " + amount + " from iban: " + sender.getIban()+ " to " + ibanReceiver, currentUser.getId());
                     activityService.add(activity);
                     JOptionPane.showMessageDialog(clientInfoView.getContentPane(), "Transfer finished");
@@ -114,17 +108,27 @@ public class ClientInfoController extends Observable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Bill bill = new Bill(clientInfoView.getBillDescription(), clientInfoView.getBillAmount(), new Date());
+            Float amount = clientInfoView.getBillAmount();
+            Bill bill = new Bill(clientInfoView.getBillDescription(), amount, new Date());
             Client client = clientService.findByCNP(clientInfoView.getChosenCNP());
             bill.setClientId(client.getId());
             bill.setEmployeeId(currentUser.getId());
-            bill.setAccountId(accountService.findByIban(clientInfoView.getChosenIban()).getId());
-            if (!billService.addBill(bill)) {
-                System.out.println("ERROR at creating bill");
-            } else {
-                System.out.println("Bill successfully created");
-                String description = "Finished processing the utility bill (" + bill.getInformation() + " ) for client " + client.getName();
-                activityService.add(new Activity(bill.getDate(), description, currentUser.getId()));
+            String iban = clientInfoView.getChosenIban();
+            Account account = accountService.findByIban(iban);
+            if(account.getBalance() >= amount) {
+                bill.setAccountId(accountService.findByIban(iban).getId());
+                if (!billService.addBill(bill)) {
+                    System.out.println("ERROR at creating bill");
+                } else {
+                    System.out.println("Bill successfully created");
+                    String description = "Finished processing the utility bill (" + bill.getInformation() + " ) for client " + client.getName();
+                    activityService.add(new Activity(bill.getDate(), description, currentUser.getId()));
+                    account.setBalance(account.getBalance() - amount);
+                    accountService.update(account.getId(), account);
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(clientInfoView.getContentPane(), "Not enough Money");
             }
         }
     }

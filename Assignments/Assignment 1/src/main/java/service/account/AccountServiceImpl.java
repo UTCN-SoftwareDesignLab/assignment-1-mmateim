@@ -45,6 +45,16 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(account);
     }
 
+    public void transferMoney(Float amount, String ibanReceiver, Account sender) {
+        float oldBalance = sender.getBalance();
+        sender.setBalance(oldBalance - amount);
+        update(sender.getId(), sender);
+        Account receiver = findByIban(ibanReceiver);
+        oldBalance = receiver.getBalance();
+        receiver.setBalance(oldBalance + amount);
+        update(receiver.getId(), receiver);
+    }
+
     @Override
     public List<Account> findByUser(String cnp) {
         Long userId = userRepository.findIdByCnp(cnp);

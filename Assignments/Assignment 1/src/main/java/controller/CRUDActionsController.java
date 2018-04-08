@@ -107,6 +107,10 @@ public class CRUDActionsController extends java.util.Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             Vector v = crudActionsView.getLastRow();
+            if(v == null) {
+                System.out.println("null row selected");
+                return;
+            }
             if (role.equals(Role.ADMIN)) {
                 setChanged();
                 notifyObservers(MAINC_CREATE_ACC);
@@ -130,6 +134,10 @@ public class CRUDActionsController extends java.util.Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             Vector v = crudActionsView.getSelectedRow();
+            if(v == null) {
+                System.out.println("null row selected");
+                return;
+            }
             if (role.equals(Role.ADMIN)) {
                 String username = v.get(0).toString();
                 userService.update(userService.findByUsername(username).getId(), v.get(1).toString());
@@ -174,6 +182,10 @@ public class CRUDActionsController extends java.util.Observable {
         @Override
         public void actionPerformed(ActionEvent e) {
             Vector v = crudActionsView.getSelectedRow();
+            if(v == null) {
+                System.out.println("null row selected");
+                return;
+            }
             if (role.equals(Role.ADMIN)) {
                 String username = v.get(0).toString();
                 userService.delete(userService.findByUsername(username));

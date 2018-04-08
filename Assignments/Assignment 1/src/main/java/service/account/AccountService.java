@@ -18,6 +18,8 @@ public interface AccountService {
 
     boolean save(Account account);
 
+    void transferMoney(Float amount, String ibanReceiver, Account sender);
+
     List<Account> findByUser(String cnp);
 
     Account findByIban(String iban);

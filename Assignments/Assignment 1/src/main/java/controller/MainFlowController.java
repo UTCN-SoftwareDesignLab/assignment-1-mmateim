@@ -27,7 +27,7 @@ public class MainFlowController implements Observer {
         mainController.addObserver(this);
         loginController = new LoginController(new LoginView(), componentFactory.getAuthenticationService(), componentFactory.getUserService());
         loginController.addObserver(this);
-        adminActionController = new AdminActionController(new AdminChooseAction());
+        adminActionController = new AdminActionController(new AdminChooseAction(), componentFactory.getUserService(), componentFactory.getActivityService());
         adminActionController.addObserver(this);
         clientInfoController = new ClientInfoController(new ClientInfoView(), componentFactory.getClientService(), componentFactory.getAccountService(), componentFactory.getBillService(), componentFactory.getActivityService());
         clientInfoController.addObserver(this);
@@ -58,6 +58,7 @@ public class MainFlowController implements Observer {
                 currentUser = userService.findByUsername(loginController.getUsername());
                 clientInfoController.setCurrentUser(currentUser);
                 if (adminRights) {
+                    adminActionController.populateComboBox();
                     adminActionController.setVisible(true);
                 } else {
                     clientInfoController.setVisible(true);

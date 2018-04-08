@@ -1,10 +1,16 @@
 package repository.activity;
 
+import DTO.ActivityDTO;
 import model.Activity;
+
+import java.util.Date;
+import java.util.List;
 
 public interface ActivityRepository {
 
-    public boolean add(Activity activity);
+    boolean add(Activity activity);
 
-    public boolean delete(Long activityId);
+    boolean delete(Long activityId);
+
+    List<ActivityDTO> findByDate(Date date);
 }
