@@ -80,7 +80,7 @@ public class MainFlowController implements Observer {
                 }
                 break;
             case CLIENT_INFO_ADVANCED:
-                System.out.println("From ClientViewInfo was chosen ADVANCED");
+                System.out.println("From ClientViewInfo was chosen CRUD operations on client");
                 clientInfoController.setVisible(false);
                 crudActionsController.clientBootstrap();
                 crudActionsController.setVisible(true);

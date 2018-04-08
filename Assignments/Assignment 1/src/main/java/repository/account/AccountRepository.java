@@ -14,7 +14,7 @@ public interface AccountRepository {
 
     Account findById(Long id) throws EntityNotFoundException;
 
-    boolean save(Account book);
+    boolean save(Account account);
 
     void removeAll();
 

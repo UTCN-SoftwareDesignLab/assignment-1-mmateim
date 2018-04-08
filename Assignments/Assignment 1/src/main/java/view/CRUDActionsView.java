@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
@@ -22,30 +23,48 @@ public class CRUDActionsView extends JFrame {
         table.setAutoCreateRowSorter(true);
     }
 
-    public void populateTable(DefaultTableModel model){
+    public void populateTable(DefaultTableModel model) {
         this.model = model;
         table.removeAll();
         table.setModel(model);
+        addRowToTable();
         table.repaint();
     }
 
-    public Vector getSelectedRow(){
-        return (Vector)model.getDataVector().get(table.getSelectedRow());
+    private void addRowToTable() {
+        if (table.getRowCount() > 0) {
+            Vector lastRow = (Vector)model.getDataVector().get(table.getRowCount() - 1);
+            if (!lastRow.get(0).toString().equals("")) {
+                model.addRow(new Vector(model.getColumnCount()));
+            }
+        }
+        else {
+            model.addRow(new Vector(model.getColumnCount()));
+        }
+
     }
 
-    public void setAddListener(ActionListener addListener){
+    public Vector getLastRow() {
+        return (Vector) model.getDataVector().get(table.getRowCount() - 1);
+    }
+
+    public Vector getSelectedRow() {
+        return (Vector) model.getDataVector().get(table.getSelectedRow());
+    }
+
+    public void setAddListener(ActionListener addListener) {
         addButton.addActionListener(addListener);
     }
 
-    public void setRemoveListener(ActionListener removeListener){
+    public void setRemoveListener(ActionListener removeListener) {
         removeButton.addActionListener(removeListener);
     }
 
-    public void setUpdateListener(ActionListener updateListener){
+    public void setUpdateListener(ActionListener updateListener) {
         updateButton.addActionListener(updateListener);
     }
 
-    public void setBackListener(ActionListener backListener){
+    public void setBackListener(ActionListener backListener) {
         backButton.addActionListener(backListener);
     }
 }

@@ -19,6 +19,10 @@ public class Account {
         this.creationDate = creationDate;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
     public Long getId() {
         return id;
     }

@@ -84,7 +84,8 @@ public class ClientInfoController extends Observable{
             }
             else {
                 System.out.println("Bill successfully created");
-                activityService.add(new Activity(bill.getDate(), "Finished processing the utility bill with id" + bill.getId(), currentUser.getId()));
+                String description = "Finished processing the utility bill (" + bill.getInformation() + " ) for client " + client.getName();
+                activityService.add(new Activity(bill.getDate(), description, currentUser.getId()));
             }
         }
     }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import static database.Constants.Tables.CLIENT;
 
-public class ClientRepositoryMySQL implements ClientRepository{
+public class ClientRepositoryMySQL implements ClientRepository {
 
     private final Connection connection;
 
@@ -31,7 +31,7 @@ public class ClientRepositoryMySQL implements ClientRepository{
                 Client client = new ClientBuilder()
                         .setID(rs.getLong("id"))
                         .setName(rs.getString("name"))
-                        .setAdress(rs.getString("address"))
+                        .setAddress(rs.getString("address"))
                         .setCNP(rs.getString("CNP"))
                         .build();
                 clientList.add(client);
@@ -45,6 +45,17 @@ public class ClientRepositoryMySQL implements ClientRepository{
 
     @Override
     public boolean save(Client client) {
+        try {
+            PreparedStatement insertStatement = connection
+                    .prepareStatement("INSERT INTO client values (null, ?, ?, ?)");
+            insertStatement.setString(1, client.getName());
+            insertStatement.setString(2, client.getAddress());
+            insertStatement.setString(3, client.getCnp());
+            insertStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -57,13 +68,12 @@ public class ClientRepositoryMySQL implements ClientRepository{
                 Client client = new ClientBuilder()
                         .setID(rs.getLong("id"))
                         .setName(rs.getString("name"))
-                        .setAdress(rs.getString("address"))
+                        .setAddress(rs.getString("address"))
                         .setCNP(rs.getString("CNP"))
                         .build();
                 return client;
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -104,13 +114,13 @@ public class ClientRepositoryMySQL implements ClientRepository{
     public List<Client> findByName(String name) {
         List<Client> clientList = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + CLIENT + " WHERE name LIKE '%" + name + "%'" );
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + CLIENT + " WHERE name LIKE '%" + name + "%'");
             ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Client client = new ClientBuilder()
                         .setID(rs.getLong("id"))
                         .setName(name)
-                        .setAdress(rs.getString("address"))
+                        .setAddress(rs.getString("address"))
                         .setCNP(rs.getString("CNP"))
                         .build();
                 clientList.add(client);

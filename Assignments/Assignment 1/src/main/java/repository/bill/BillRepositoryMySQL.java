@@ -22,7 +22,6 @@ public class BillRepositoryMySQL implements BillRepository {
                     .prepareStatement("INSERT INTO bill values (null, ?, ?, ?, ?, ?, ?)");
             insertStatement.setString(1, bill.getInformation());
             insertStatement.setFloat(2, bill.getAmount());
-            System.out.println("date " + bill.getDate().getTime());
             insertStatement.setLong(3, bill.getDate().getTime());
             insertStatement.setLong(4, bill.getEmployeeId());
             insertStatement.setLong(5, bill.getAccountId());

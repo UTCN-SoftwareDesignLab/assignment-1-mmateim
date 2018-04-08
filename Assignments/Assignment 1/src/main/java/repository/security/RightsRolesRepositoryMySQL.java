@@ -98,15 +98,13 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
     }
 
     @Override
-    public void addRolesToUser(User user, List<Role> roles) {
+    public void addRolesToUser(User user, Role role) {
         try {
-            for (Role role : roles) {
-                PreparedStatement insertUserRoleStatement = connection
-                        .prepareStatement("INSERT INTO `user_role` values (null, ?, ?)");
-                insertUserRoleStatement.setLong(1, user.getId());
-                insertUserRoleStatement.setLong(2, role.getId());
-                insertUserRoleStatement.executeUpdate();
-            }
+            PreparedStatement insertUserRoleStatement = connection
+                    .prepareStatement("INSERT INTO `user_role` values (null, ?, ?)");
+            insertUserRoleStatement.setLong(1, user.getId());
+            insertUserRoleStatement.setLong(2, role.getId());
+            insertUserRoleStatement.executeUpdate();
         } catch (SQLException e) {
 
         }
@@ -131,7 +129,7 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
     }
 
     @Override
-    public boolean updateUserRole(Long userId, String role){
+    public boolean updateUserRole(Long userId, String role) {
         try {
             connection.prepareStatement("UPDATE " + USER_ROLE + " set role_id = '" + findRoleByTitle(role).getId() + "'").executeUpdate();
             return true;

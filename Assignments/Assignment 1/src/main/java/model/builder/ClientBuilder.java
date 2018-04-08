@@ -28,13 +28,8 @@ public class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder setAccounts(List<Account> accounts) {
-        client.setAccounts(accounts);
-        return this;
-    }
-
-    public ClientBuilder setAdress(String adress) {
-        client.setAddress(adress);
+    public ClientBuilder setAddress(String address) {
+        client.setAddress(address);
         return this;
     }
 

@@ -7,6 +7,7 @@ import repository.EntityNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import static database.Constants.Tables.ACCOUNT;
 
@@ -85,10 +86,13 @@ public class AccountRepositoryMySQL implements AccountRepository {
     public boolean save(Account account) {
         try {
             PreparedStatement insertStatement = connection
-                    .prepareStatement("INSERT INTO account values (null, ?, ?, ?)");
+                    .prepareStatement("INSERT INTO account values (null, ?, ?, ?, ?, ?)");
             insertStatement.setString(1, account.getIban());
-            insertStatement.setLong(2, account.getHolderID());
-            insertStatement.setFloat(3, account.getBalance());
+            insertStatement.setString(2, account.getType());
+            insertStatement.setLong(3, new Date().getTime());
+            insertStatement.setFloat(4, account.getBalance());
+            insertStatement.setLong(5, account.getHolderID());
+
             insertStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -146,7 +150,7 @@ public class AccountRepositoryMySQL implements AccountRepository {
                 .setIBAN(rs.getString("iban"))
                 .setBalance(rs.getFloat("amount"))
                 .setHolderID(rs.getLong("client_id"))
-                .setCreationDate(new Date(rs.getInt("date")))
+                .setCreationDate(new Date(rs.getLong("date")))
                 .build();
     }
 

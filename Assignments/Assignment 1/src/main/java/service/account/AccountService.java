@@ -16,7 +16,7 @@ public interface AccountService {
 
     Account findById(Long id) throws EntityNotFoundException;
 
-    boolean save(Account book);
+    boolean save(Account account);
 
     List<Account> findByUser(String cnp);
 

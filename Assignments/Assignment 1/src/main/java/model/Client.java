@@ -6,7 +6,6 @@ public class Client {
     private long ID;
     private String name;
     private String cnp;
-    private List<Account> accounts;
     private String address;
 
     public long getId() {
@@ -31,14 +30,6 @@ public class Client {
 
     public void setCnp(String cnp) {
         this.cnp = cnp;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
     }
 
     public String getAddress() {

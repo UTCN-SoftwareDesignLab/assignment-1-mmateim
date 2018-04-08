@@ -143,7 +143,7 @@ public class UserRepositoryMySQL implements UserRepository {
             long userId = rs.getLong(1);
             user.setId(userId);
 
-            rightsRolesRepository.addRolesToUser(user, user.getRoles());
+            rightsRolesRepository.addRolesToUser(user, user.getRoles().get(0));
 
             return true;
         } catch (SQLException e) {
