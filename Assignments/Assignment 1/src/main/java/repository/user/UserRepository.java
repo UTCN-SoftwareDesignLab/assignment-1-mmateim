@@ -18,7 +18,7 @@ public interface UserRepository {
 
     Notification<User> findByUsernameAndPassword(String username, String password) throws AuthenticationException;
 
-    boolean save(User user);
+    boolean add(User user);
 
     String findRoleByUsername(String username);
 
@@ -27,5 +27,4 @@ public interface UserRepository {
     Long findIdByCnp(String cnp);
 
     public Boolean delete(User user);
-
 }

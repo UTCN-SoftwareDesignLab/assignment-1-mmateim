@@ -37,9 +37,25 @@ public class AccountRepositoryMySQL implements AccountRepository {
     }
 
     @Override
-    public Boolean delete(String id) {
+    public Boolean delete(Long id) {
         try {
-            connection.prepareStatement("DELETE from account WHERE id = '" + id + "'").executeUpdate();
+            connection.prepareStatement("DELETE from account WHERE id = '" + id.toString() + "'").executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean update(Long id, Account account) {
+        try {
+            PreparedStatement updateSt = connection.prepareStatement("UPDATE account set client_id = ?, type = ?, iban = ?, amount = ? where id = '" + id.toString() + "'");
+            updateSt.setLong(1, account.getHolderID() );
+            updateSt.setString(2, account.getType());
+            updateSt.setString(3, account.getIban());
+            updateSt.setFloat(4,account.getBalance());
+            updateSt.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

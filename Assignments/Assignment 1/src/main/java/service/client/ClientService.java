@@ -18,4 +18,6 @@ public interface ClientService {
     public List<String> findByName(String name);
 
     public Boolean delete(String id);
+
+    public Boolean update(String id, Client client);
 }

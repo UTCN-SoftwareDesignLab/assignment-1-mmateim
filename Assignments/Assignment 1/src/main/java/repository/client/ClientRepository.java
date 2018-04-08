@@ -18,4 +18,6 @@ public interface ClientRepository {
     List<Client> findByName(String name);
 
     Boolean delete (String id);
+
+    Boolean update(String id, Client client);
 }

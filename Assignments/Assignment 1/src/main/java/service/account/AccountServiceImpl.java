@@ -26,8 +26,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Boolean delete(String id) {
+    public Boolean delete(Long id) {
         return accountRepository.delete(id);
+    }
+
+    @Override
+    public Boolean update(Long id, Account account) {
+        return accountRepository.update(id, account);
     }
 
     @Override

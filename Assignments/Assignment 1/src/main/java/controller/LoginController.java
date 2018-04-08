@@ -4,6 +4,7 @@ import model.User;
 import model.validation.Notification;
 import repository.user.AuthenticationException;
 import service.user.AuthenticationService;
+import service.user.UserServiceImpl;
 import view.LoginView;
 
 import javax.swing.*;
@@ -11,18 +12,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 
+import static database.Constants.Controller.ADMIN_PASS;
+
 /**
  * Created by Alex on 18/03/2017.
  */
 public class LoginController extends Observable {
     private final LoginView loginView;
     private AuthenticationService authenticationService;
+    private UserServiceImpl userService;
 
-    public LoginController(LoginView loginView, AuthenticationService authenticationService) {
+    public LoginController(LoginView loginView, AuthenticationService authenticationService, UserServiceImpl userService) {
         this.loginView = loginView;
         loginView.setLoginButtonListener(new LoginButtonListener());
         loginView.setRegisterButtonListener(new RegisterButtonListener());
         this.authenticationService = authenticationService;
+        this.userService = userService;
     }
 
     public void setButtonsVisible(Boolean alreadyRegistered) {
@@ -73,8 +78,9 @@ public class LoginController extends Observable {
                 } else {
                     if (loginView.isAdmin()) {
                         String pass = JOptionPane.showInputDialog(loginView.getContentPane(), "Password for admin");
-                        if(!pass.equals("parola")) {
+                        if(!pass.equals(ADMIN_PASS)) {
                             JOptionPane.showMessageDialog(loginView.getContentPane(), "Wrong password");
+                            userService.delete(userService.findByUsername(username));
                         }
                         else{
                             JOptionPane.showMessageDialog(loginView.getContentPane(), "Registration successful!");

@@ -63,7 +63,7 @@ public class ComponentFactory {
         this.accountRepository = new AccountRepositoryMySQL(connection);
         this.clientRepository = new ClientRepositoryMySQL(connection);
         this.clientService = new ClientServiceImpl(this.clientRepository);
-        this.userService = new UserServiceImpl(this.userRepository);
+        this.userService = new UserServiceImpl(this.userRepository, this.rightsRolesRepository);
         this.accountService = new AccountServiceImpl(this.accountRepository, this.userRepository);
         this.billRepository = new BillRepositoryMySQL(connection);
         this.billService = new BillServiceImpl(this.billRepository);

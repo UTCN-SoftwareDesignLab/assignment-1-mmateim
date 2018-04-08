@@ -25,7 +25,7 @@ public class MainFlowController implements Observer {
         this.componentFactory = componentFactory;
         mainController = new MainController(new MainForm());
         mainController.addObserver(this);
-        loginController = new LoginController(new LoginView(), componentFactory.getAuthenticationService());
+        loginController = new LoginController(new LoginView(), componentFactory.getAuthenticationService(), componentFactory.getUserService());
         loginController.addObserver(this);
         adminActionController = new AdminActionController(new AdminChooseAction());
         adminActionController.addObserver(this);

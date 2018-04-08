@@ -1,6 +1,7 @@
 package service.client;
 
 import model.Client;
+import model.validation.UserRoleValidator;
 import repository.EntityNotFoundException;
 import repository.client.ClientRepository;
 
@@ -33,6 +34,11 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Boolean delete(String id) {
         return clientRepository.delete(id);
+    }
+
+    @Override
+    public Boolean update(String id, Client client) {
+        return clientRepository.update(id,client);
     }
 
     @Override

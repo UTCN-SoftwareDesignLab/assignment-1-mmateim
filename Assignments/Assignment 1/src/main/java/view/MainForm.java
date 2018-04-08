@@ -11,7 +11,7 @@ public class MainForm extends JFrame {
 
     public MainForm(){
         super("Banking App");
-        setSize(800, 600);
+        setSize(600, 400);
         setContentPane(mainPanel);
         setLocationRelativeTo(null);
         setVisible(true);

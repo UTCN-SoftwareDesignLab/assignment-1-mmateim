@@ -12,6 +12,8 @@ public interface AccountService {
 
     List<Account> findAll();
 
+    Boolean update(Long id, Account account);
+
     Account findById(Long id) throws EntityNotFoundException;
 
     boolean save(Account book);
@@ -20,5 +22,5 @@ public interface AccountService {
 
     Account findByIban(String iban);
 
-    Boolean delete(String id);
+    Boolean delete(Long id);
 }

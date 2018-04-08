@@ -3,6 +3,8 @@ package service.user;
 import DTO.UserDTO;
 import model.Role;
 import model.User;
+import model.validation.UserRoleValidator;
+import repository.security.RightsRolesRepository;
 import repository.user.UserRepository;
 
 import java.util.ArrayList;
@@ -11,9 +13,11 @@ import java.util.List;
 public class UserServiceImpl {
 
     private final UserRepository userRepository;
+    private final RightsRolesRepository rightsRolesRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RightsRolesRepository rightsRolesRepository) {
         this.userRepository = userRepository;
+        this.rightsRolesRepository = rightsRolesRepository;
     }
 
     public List<UserDTO> findAll(){
@@ -35,6 +39,18 @@ public class UserServiceImpl {
     }
 
     public boolean delete(User user){
+        //role
         return userRepository.delete(user);
+    }
+
+    public boolean update(Long id, String role){
+        UserRoleValidator validator = new UserRoleValidator(role);
+        if(validator.validate()){
+            return rightsRolesRepository.updateUserRole(id, role);
+        }
+        else {
+            System.out.println("Incorrect role input");
+            return false;
+        }
     }
 }

@@ -131,10 +131,33 @@ public class RightsRolesRepositoryMySQL implements RightsRolesRepository {
     }
 
     @Override
+    public boolean updateUserRole(Long userId, String role){
+        try {
+            connection.prepareStatement("UPDATE " + USER_ROLE + " set role_id = '" + findRoleByTitle(role).getId() + "'").executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public void addRoleRight(Long roleId, Long rightId) {
         try {
             PreparedStatement insertStatement = connection
                     .prepareStatement("INSERT IGNORE INTO " + ROLE_RIGHT + " values (null, ?, ?)");
+            insertStatement.setLong(1, roleId);
+            insertStatement.setLong(2, rightId);
+            insertStatement.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public void deleteRoleRight(Long roleId, Long rightId) {
+        try {
+            PreparedStatement insertStatement = connection
+                    .prepareStatement("DELETE from" + ROLE_RIGHT + " WHERE role_id = ?  and right_id = ?");
             insertStatement.setLong(1, roleId);
             insertStatement.setLong(2, rightId);
             insertStatement.executeUpdate();

@@ -3,6 +3,8 @@ package controller;
 import DTO.UserDTO;
 import model.Account;
 import model.Client;
+import model.builder.AccountBuilder;
+import model.builder.ClientBuilder;
 import service.account.AccountService;
 import service.client.ClientService;
 import service.user.UserServiceImpl;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Vector;
 
 import static database.Constants.Controller.CRUD_BACK;
+import static database.Constants.Controller.LOGINC_REG_SUCC;
 
 public class CRUDActionsController extends java.util.Observable {
 
@@ -105,8 +108,44 @@ public class CRUDActionsController extends java.util.Observable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            Vector v = crudActionsView.getSelectedRow();
+            if(role.equals(Role.ADMIN)) {
+                String username = v.get(0).toString();
+                userService.update(userService.findByUsername(username).getId(), v.get(1).toString());
+                setChanged();
+                notifyObservers(LOGINC_REG_SUCC);
+                return;
+            }
+            if(role.equals(Role.CLIENT)){
+                String id = v.get(0).toString();
+                Client client = rowToClient(v);
+                clientService.update(id, client);
+            }
+            if(role.equals(Role.ACCOUNT)){
+                Long id = Long.parseLong(v.get(0).toString());
+                Account account = rowToAccount(v);
+                accountService.update(id, account);
+            }
+            setChanged();
+            notifyObservers(CRUD_BACK);
         }
+    }
+
+    private Account rowToAccount(Vector v){
+        Account account = new AccountBuilder().setIBAN(v.get(1).toString())
+                .setBalance(Float.parseFloat(v.get(2).toString()))
+                .setHolderID(Long.parseLong(v.get(3).toString()))
+                .setType(v.get(4).toString())
+                .build();
+        return account;
+    }
+
+    private Client rowToClient(Vector v){
+        Client client = new ClientBuilder().setName(v.get(1).toString())
+                .setCNP(v.get(2).toString())
+                .setAdress(v.get(3).toString())
+                .build();
+        return client;
     }
 
     private class DeleteOpListener implements ActionListener{
@@ -123,7 +162,7 @@ public class CRUDActionsController extends java.util.Observable {
                 clientService.delete(id);
             }
             if(role.equals(Role.ACCOUNT)){
-                String id = v.get(0).toString();
+                Long id = Long.parseLong(v.get(0).toString());
                 accountService.delete(id);
             }
             setChanged();

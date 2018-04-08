@@ -44,7 +44,7 @@ public class AuthenticationImpl implements AuthenticationService {
             userRegisterNotification.setResult(Boolean.FALSE);
         } else {
             user.setPassword(encodePassword(password));
-            userRegisterNotification.setResult(userRepository.save(user));
+            userRegisterNotification.setResult(userRepository.add(user));
         }
         return userRegisterNotification;
     }

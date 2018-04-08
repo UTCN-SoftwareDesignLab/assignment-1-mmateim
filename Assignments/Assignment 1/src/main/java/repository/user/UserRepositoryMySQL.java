@@ -130,7 +130,7 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
-    public boolean save(User user) {
+    public boolean add(User user) {
         try {
             PreparedStatement insertUserStatement = connection
                     .prepareStatement("INSERT INTO user values (null, ?, ?)");
